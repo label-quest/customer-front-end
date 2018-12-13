@@ -80,7 +80,19 @@ class App extends Component {
               placeholder="Customer ID"
             />
           </div>
+          
+          <p></p>
+          <label>Requested matches per label</label>
+          <div>
+            <Field
+              name="reqLabelPerClass"
+              component="input"
+              type="number"
+              placeholder="Matches per label"
+            />
+          </div>
         </div>
+
           <div>
             <p></p>
             <label htmlFor={FILE_FIELD_NAME}>Upload Image Archive</label>
