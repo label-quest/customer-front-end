@@ -2,6 +2,7 @@ import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
 
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const FILE_FIELD_NAME = 'files';
 
@@ -35,6 +36,7 @@ class App extends Component {
   };
 
   // POST customer ID and images archive
+  // Switching POST to Axios
   onSubmit(data) {
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
@@ -43,13 +45,38 @@ class App extends Component {
 
     console.info('POST', body, data);
     console.info('This is expected to fail:');
-    fetch(`http://labelquest.com/send/`, {
-      method: 'POST',
-      body: body,
+    axios.post('/', {
+      body: body
     })
     .then(res => res.json())
     .then(res => console.log(res))
     .catch(err => console.error(err));
+  }
+  
+  
+  // onSubmit(data) {
+  //   var body = new FormData();
+  //   Object.keys(data).forEach(( key ) => {
+  //     body.append(key, data[ key ]);
+  //   });
+
+  //   console.info('POST', body, data);
+  //   console.info('This is expected to fail:');
+  //   fetch(`http://labelquest.com/send/`, {
+  //     method: 'POST',
+  //     body: body,
+  //   })
+  //   .then(res => res.json())
+  //   .then(res => console.log(res))
+  //   .catch(err => console.error(err));
+  // }
+
+  // Switching GET to AXIOS
+  getStatistics() {
+    axios.get('/')
+      .then(response => {
+        console.log(response);
+      })
   }
 
   // GET statistics to show to Customer
@@ -68,43 +95,43 @@ class App extends Component {
       reset,
     } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <div>
-        <h1>LabelQuest Customer Interface</h1>
-        <label>Customer ID</label>
-        <div>
-          <Field
-            name="CustomerID"
-            component="input"
-            type="text"
-            placeholder="Customer ID"
-          />
+      <div>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <div>
+          <h1>LabelQuest Customer Interface</h1>
+          <label>Customer ID</label>
+          <div>
+            <Field
+              name="CustomerID"
+              component="input"
+              type="text"
+              placeholder="Customer ID"
+            />
+          </div>
         </div>
-      </div>
-        <div>
-          <p></p>
-          <label htmlFor={FILE_FIELD_NAME}>Upload Image Archive</label>
-          <Field
-            name={FILE_FIELD_NAME}
-            component={renderDropzoneInput}
-          />
-        </div>
-        <div>
-          <button type="submit">
-            Submit
-          </button>
-          <button onClick={reset}>
-            Clear Values
-          </button>
-        </div>
+          <div>
+            <p></p>
+            <label htmlFor={FILE_FIELD_NAME}>Upload Image Archive</label>
+            <Field
+              name={FILE_FIELD_NAME}
+              component={renderDropzoneInput}
+            />
+          </div>
+          <div>
+            <button type="submit">
+              Submit
+            </button>
+            <button onClick={reset}>
+              Clear Values
+            </button>
+          </div>
+
+        </form>
         <p></p>
         <button onClick={this.getStatistics}>
         Get Label getStatistics
         </button>
-
-      </form>
-
-      
+      </div>
     );
   }
 }
