@@ -36,7 +36,7 @@ class App extends Component {
   };
 
   // POST customer ID and images archive
-  // Switching POST to Axios
+  // END-POINT uses name instead of ID.
   onSubmit(data) {
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
@@ -52,24 +52,6 @@ class App extends Component {
     .then(res => console.log(res))
     .catch(err => console.error(err));
   }
-  
-  
-  // onSubmit(data) {
-  //   var body = new FormData();
-  //   Object.keys(data).forEach(( key ) => {
-  //     body.append(key, data[ key ]);
-  //   });
-
-  //   console.info('POST', body, data);
-  //   console.info('This is expected to fail:');
-  //   fetch(`http://labelquest.com/send/`, {
-  //     method: 'POST',
-  //     body: body,
-  //   })
-  //   .then(res => res.json())
-  //   .then(res => console.log(res))
-  //   .catch(err => console.error(err));
-  // }
 
   // Switching GET to AXIOS
   getStatistics() {
@@ -78,16 +60,6 @@ class App extends Component {
         console.log(response);
       })
   }
-
-  // GET statistics to show to Customer
-  // Maybe get an array of hits per label
-  // getStatistics() {
-  //   fetch('http://labelquest.com/get/')
-  //     .then(stats => stats.map(key, index){
-  //       //put unwrap here
-  //       //display bar-graph per label
-  //     }).catch(err => console.error(err));
-  // }
 
   render() {
     const {
