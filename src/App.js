@@ -5,7 +5,9 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
 const FILE_FIELD_NAME = 'files';
+const required = value => value ? undefined : 'Required'
 
+// Dropzone for File input
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
   return (
@@ -14,7 +16,7 @@ const renderDropzoneInput = (field) => {
         name={field.name}
         onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
       >
-        <div>Drop a files here, or click to select file to upload.</div>
+        <div>Drop a file here, or click to select file to upload.</div>
       </Dropzone>
       {field.meta.touched &&
         field.meta.error &&
@@ -28,7 +30,66 @@ const renderDropzoneInput = (field) => {
   );
 }
 
+// Validation for entries
+const validate = values => {
+  const errors = {}
+  if (!values.dataset_name) {
+    errors.dataset_name = 'Required'
+  } 
+  if (!values.description) {
+    errors.description = 'Required'
+  }
+  if (!values.goal) {
+    errors.goal = 'Required'
+  }
+  // if (!values.email) {
+  //   errors.email = 'Required'
+  // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  //   errors.email = 'Invalid email address'
+  // }
+  // if (!values.age) {
+  //   errors.age = 'Required'
+  // } else if (isNaN(Number(values.age))) {
+  //   errors.age = 'Must be a number'
+  // } else if (Number(values.age) < 18) {
+  //   errors.age = 'Sorry, you must be at least 18 years old'
+  // }
+  return errors
+}
+
+// RENDER of FORM
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+  </div>
+)
+
+// Main App class
 class App extends Component {
+
+  constructor() {
+    super();
+
+    // set initial state container for customer list
+    this.state = {
+      customers: []
+    };
+  }
+
+  // get current list of customers
+  componentDidMount() {
+    axios.get('http://localhost:8000/customers/')
+      .then(response => {
+        //var clients = response.data.map(cust => (cust["id"],cust["name"]))
+        //console.log(response.data);
+        this.setState({customers: response.data})
+      })
+      .catch(error => console.log(error.response));
+  }
 
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
@@ -38,27 +99,26 @@ class App extends Component {
   // POST customer ID and images archive
   // END-POINT uses name instead of ID.
   onSubmit(data) {
-    var body = new FormData();
-    Object.keys(data).forEach(( key ) => {
-      body.append(key, data[ key ]);
-    });
 
-    console.info('POST', body, data);
-    console.info('This is expected to fail:');
-    axios.post('/', {
-      body: body
+    // customer error handling
+    if (data["cust_id"] === undefined) {
+      alert("You need to select a customer")
+      return
+    } else if (data["files"] === undefined) {
+      alert("Please choose a file to upload")
+      return
+    }
+
+    // HARD-CODING CUSTOMER ID - later the user will be LOGGED IN
+    axios.post('http://localhost:8000/data_sets/', {
+      "name": data["dataset_name"],
+      "description": data["description"],
+      "goal": data["goal"],
+      "folder_path": data["files"][0]["name"], // ONLY one file - need to generalize
+      "customer": data["cust_id"],
     })
-    .then(res => res.json())
     .then(res => console.log(res))
     .catch(err => console.error(err));
-  }
-
-  // Switching GET to AXIOS
-  getStatistics() {
-    axios.get('/')
-      .then(response => {
-        console.log(response);
-      })
   }
 
   render() {
@@ -66,36 +126,69 @@ class App extends Component {
       handleSubmit,
       reset,
     } = this.props;
+
+    // read state in order to propogate select field
+    var custs = this.state.customers;
+
     return (
       <div>
+
+        <h1>LabelQuest Customer Interface</h1>
+
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div>
-          <h1>LabelQuest Customer Interface</h1>
-          <label>Customer ID</label>
+          
+          <label>Customer Name</label>
+          <div>
+          <Field
+              name="cust_id"
+              component="select">
+              <option value="">Select a customer...</option>
+              {custs.map(cust => (
+              <option value={cust["id"]} key={cust["id"]}>
+                {cust["name"]}
+              </option>
+            ))}
+          </Field>
+          
+          </div>
+          <p />
+          <hr />
+
+          <p />
           <div>
             <Field
-              name="CustomerID"
-              component="input"
+              name="dataset_name"
+              component={renderField}
               type="text"
-              placeholder="Customer ID"
+              label="Dataset Name"
             />
           </div>
-          
-          <p></p>
-          <label>Requested matches per label</label>
+
+          <p />
           <div>
             <Field
-              name="reqLabelPerClass"
-              component="input"
+              name="description"
+              component={renderField}
+              type="text"
+              label="Dataset description"
+            />
+          </div>
+
+          <p />
+          <div>
+            <Field
+              name="goal"
+              component={renderField}
               type="number"
-              placeholder="Matches per label"
+              label="Goal"
             />
           </div>
         </div>
 
           <div>
-            <p></p>
-            <label htmlFor={FILE_FIELD_NAME}>Upload Image Archive</label>
+            <p />
+            <label htmlFor={FILE_FIELD_NAME}>Upload Label Image Archive</label>
             <Field
               name={FILE_FIELD_NAME}
               component={renderDropzoneInput}
@@ -111,7 +204,7 @@ class App extends Component {
           </div>
 
         </form>
-        <p></p>
+        <p />
         <button onClick={this.getStatistics}>
         Get Label getStatistics
         </button>
@@ -122,4 +215,5 @@ class App extends Component {
 
 export default reduxForm({
   form: 'simple',
+  validate,
 })(App);
