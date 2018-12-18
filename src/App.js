@@ -1,12 +1,13 @@
 import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux'
 
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
-const FILE_FIELD_NAME = 'files';
-const required = value => value ? undefined : 'Required'
+import { getCustomers, getCustomerDatasets } from './CustomersActions'
 
+const FILE_FIELD_NAME = 'files';
 
 // Render of form
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
@@ -60,24 +61,30 @@ const validate = values => {
 // Main App class
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
+    this.handleGetDatasets = this.handleGetDatasets.bind(this);
 
-    // set initial state container for customers
-    this.state = {
-      customers: []
-    };
   }
 
+  handleGetDatasets() { 
+    console.log("Handler ")
+    this.props.getCustomerDatasets("3")
+  }
+ 
+  componentWillMount() {
+    this.props.getCustomers()
+  }
   // Get current list of customers
   componentDidMount() {
-    axios.get('http://localhost:8000/customers/')
-      .then(response => {
-        //var clients = response.data.map(cust => (cust["id"],cust["name"]))
-        //console.log(response.data);
-        this.setState({customers: response.data})
-      })
-      .catch(error => console.log(error.response));
+    
+    // axios.get('http://localhost:8000/customers/')
+    //   .then(response => {
+    //     //var clients = response.data.map(cust => (cust["id"],cust["name"]))
+    //     //console.log(response.data);
+    //     this.setState({customers: response.data})
+    //   })
+    //   .catch(error => console.log(error.response));
   }
 
   static propTypes = {
@@ -117,7 +124,8 @@ class App extends Component {
     } = this.props;
 
     // Read state in order to propogate select field
-    var custs = this.state.customers;
+    var custs = this.props.customers;
+    console.log(custs)
 
     return (
       <div>
@@ -127,18 +135,18 @@ class App extends Component {
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div>
           
-          <label>Customer Name</label>
+          <label>Customer Name (testing - will be replaced by LOGIN) </label>
           <div>
           <Field
               name="cust_id"
               component="select">
               <option value="">Select a customer...</option>
-              {custs.map(cust => (
+              {custs !== undefined ? custs.map(cust => (
               // Customer name is mapped to the ID for posting
               <option value={cust["id"]} key={cust["id"]}>
                 {cust["name"]}
               </option>
-            ))}
+            )):console.log("error customers undefined")}
           </Field>
           
           </div>
@@ -192,14 +200,36 @@ class App extends Component {
               Clear Values
             </button>
           </div>
-
         </form>
-      </div>
-    );
+        <p></p>
+        <div>
+        <p>-----</p>
+          <button onClick={this.handleGetDatasets}>
+          See Customer Datasets
+          </button>
+        </div>
+      </div> 
+    ); 
   }
 }
 
-export default reduxForm({
+const mapStateToProps = state => ({
+  customers: state.customers.customers,
+  dataset: state.customers.dataset,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getCustomers: getCustomers(dispatch),
+  getCustomerDatasets: getCustomerDatasets(dispatch),
+})
+
+
+
+App = reduxForm({
   form: 'simple',
   validate,
 })(App);
+
+App = connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default App;
