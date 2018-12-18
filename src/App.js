@@ -7,6 +7,18 @@ import axios from 'axios';
 const FILE_FIELD_NAME = 'files';
 const required = value => value ? undefined : 'Required'
 
+
+// Render of form
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+  </div>
+)
+
 // Dropzone for File input
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
@@ -30,7 +42,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-// Validation for entries
+// Validation for form entries
 const validate = values => {
   const errors = {}
   if (!values.dataset_name) {
@@ -42,31 +54,8 @@ const validate = values => {
   if (!values.goal) {
     errors.goal = 'Required'
   }
-  // if (!values.email) {
-  //   errors.email = 'Required'
-  // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-  //   errors.email = 'Invalid email address'
-  // }
-  // if (!values.age) {
-  //   errors.age = 'Required'
-  // } else if (isNaN(Number(values.age))) {
-  //   errors.age = 'Must be a number'
-  // } else if (Number(values.age) < 18) {
-  //   errors.age = 'Sorry, you must be at least 18 years old'
-  // }
   return errors
 }
-
-// RENDER of FORM
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type}/>
-      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-    </div>
-  </div>
-)
 
 // Main App class
 class App extends Component {
@@ -74,13 +63,13 @@ class App extends Component {
   constructor() {
     super();
 
-    // set initial state container for customer list
+    // set initial state container for customers
     this.state = {
       customers: []
     };
   }
 
-  // get current list of customers
+  // Get current list of customers
   componentDidMount() {
     axios.get('http://localhost:8000/customers/')
       .then(response => {
@@ -97,7 +86,7 @@ class App extends Component {
   };
 
   // POST customer ID and images archive
-  // END-POINT uses name instead of ID.
+  // END-POINT uses cust ID.
   onSubmit(data) {
 
     // customer error handling
@@ -127,13 +116,13 @@ class App extends Component {
       reset,
     } = this.props;
 
-    // read state in order to propogate select field
+    // Read state in order to propogate select field
     var custs = this.state.customers;
 
     return (
       <div>
-
-        <h1>LabelQuest Customer Interface</h1>
+        <img src={require("./labelQuestCustomerPortal.png")} alt="Portal Header" />
+        <h3>LabelQuest Customer Interface</h3>
 
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div>
@@ -145,6 +134,7 @@ class App extends Component {
               component="select">
               <option value="">Select a customer...</option>
               {custs.map(cust => (
+              // Customer name is mapped to the ID for posting
               <option value={cust["id"]} key={cust["id"]}>
                 {cust["name"]}
               </option>
@@ -196,7 +186,7 @@ class App extends Component {
           </div>
           <div>
             <button type="submit">
-              Submit
+              Upload
             </button>
             <button onClick={reset}>
               Clear Values
@@ -204,10 +194,6 @@ class App extends Component {
           </div>
 
         </form>
-        <p />
-        <button onClick={this.getStatistics}>
-        Get Label getStatistics
-        </button>
       </div>
     );
   }
