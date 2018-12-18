@@ -1,6 +1,7 @@
 import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
+import CustomerDatasetView from './CustomerDatasetView'
 
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
@@ -125,6 +126,7 @@ class App extends Component {
 
     // Read state in order to propogate select field
     var custs = this.props.customers;
+    var dataset = this.props.dataset;
     console.log(custs)
 
     return (
@@ -207,6 +209,11 @@ class App extends Component {
           <button onClick={this.handleGetDatasets}>
           See Customer Datasets
           </button>
+        </div>
+        <div>
+          <CustomerDatasetView
+          dataset = {dataset} />
+          
         </div>
       </div> 
     ); 
