@@ -5,8 +5,10 @@ import { Provider, } from 'react-redux';
 import { reducer as formReducer, } from 'redux-form';
 import { customersReducer } from './CustomersReducer';
 
+
 import App from './App';
 
+require('./index.css');
 const reducer = combineReducers({
   form: formReducer,
   customers: customersReducer, 

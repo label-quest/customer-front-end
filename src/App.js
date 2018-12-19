@@ -25,7 +25,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
   return (
-    <div>
+    <div id="dropzone">
       <Dropzone
         name={field.name}
         onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
@@ -131,81 +131,75 @@ class App extends Component {
 
     return (
       <div>
-        <img src={require("./labelQuestCustomerPortal.png")} alt="Portal Header" />
-        <h3>LabelQuest Customer Interface</h3>
+        <div className="container">
+          <img src={require("./labelQuestCustomerPortal.png")} alt="Portal Header" />
+          <form id="contact" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <h3>LabelQuest Upload Form</h3>
+            <div>
+            
+            <label>Customer Name (testing - will be replaced by LOGIN) </label>
+            <div>
+              <Field
+                  name="cust_id"
+                  component="select">
+                  <option value="">Select a customer...</option>
+                  {custs !== undefined ? custs.map(cust => (
+                  // Customer name is mapped to the ID for posting
+                  <option value={cust["id"]} key={cust["id"]}>
+                    {cust["name"]}
+                  </option>
+                )):console.log("error customers undefined")}
+              </Field>
+            </div>
 
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <div>
-          
-          <label>Customer Name (testing - will be replaced by LOGIN) </label>
-          <div>
-          <Field
-              name="cust_id"
-              component="select">
-              <option value="">Select a customer...</option>
-              {custs !== undefined ? custs.map(cust => (
-              // Customer name is mapped to the ID for posting
-              <option value={cust["id"]} key={cust["id"]}>
-                {cust["name"]}
-              </option>
-            )):console.log("error customers undefined")}
-          </Field>
-          
-          </div>
-          <p />
-          <hr />
+            <div>
+              <Field
+                name="dataset_name"
+                component={renderField}
+                type="text"
+                label="Dataset Name"
+              />
+            </div>
 
-          <p />
-          <div>
-            <Field
-              name="dataset_name"
-              component={renderField}
-              type="text"
-              label="Dataset Name"
-            />
+            <div>
+              <Field
+                name="description"
+                component={renderField}
+                type="text"
+                label="Dataset description"
+              />
+            </div>
+
+            <div>
+              <Field
+                name="goal"
+                component={renderField}
+                type="number"
+                label="Goal"
+              />
+            </div>
           </div>
 
-          <p />
-          <div>
-            <Field
-              name="description"
-              component={renderField}
-              type="text"
-              label="Dataset description"
-            />
-          </div>
-
-          <p />
-          <div>
-            <Field
-              name="goal"
-              component={renderField}
-              type="number"
-              label="Goal"
-            />
-          </div>
+            <div id="upload-area">
+              <label htmlFor={FILE_FIELD_NAME}>Upload Label Image Archive</label>
+              <Field
+                name={FILE_FIELD_NAME}
+                component={renderDropzoneInput}
+              />
+            </div>
+            <div>
+              <button type="submit">
+                Upload
+              </button>
+              <button onClick={reset}>
+                Clear Values
+              </button>
+            </div>
+          </form>
         </div>
-
-          <div>
-            <p />
-            <label htmlFor={FILE_FIELD_NAME}>Upload Label Image Archive</label>
-            <Field
-              name={FILE_FIELD_NAME}
-              component={renderDropzoneInput}
-            />
-          </div>
-          <div>
-            <button type="submit">
-              Upload
-            </button>
-            <button onClick={reset}>
-              Clear Values
-            </button>
-          </div>
-        </form>
-        <p></p>
+        
         <div>
-        <p>-----</p>
+          <p>-----</p>
           <button onClick={this.handleGetDatasets}>
           See Customer Datasets
           </button>
