@@ -7,6 +7,7 @@ import { customersReducer } from './CustomersReducer';
 
 
 import App from './App';
+import AppRouter from './AppRouter';
 
 require('./index.css');
 const reducer = combineReducers({
@@ -22,7 +23,7 @@ const store = configureStore({});
 
 render(
   <Provider store={ store }>
-    <App />
+    <AppRouter />
   </Provider>,
   document.getElementById('root')
 );

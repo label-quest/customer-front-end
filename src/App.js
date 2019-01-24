@@ -2,49 +2,15 @@ import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
 import CustomerDatasetView from './CustomerDatasetView'
-
-import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
 import { getCustomers, getCustomerDatasets } from './CustomersActions'
+import renderDropzoneInput from "./DropzoneComponent"
+import renderField from "./RenderFieldComponent"
 
 const FILE_FIELD_NAME = 'files';
 
-// Render of form
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type}/>
-      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-    </div>
-  </div>
-)
-
-// Dropzone for File input
-const renderDropzoneInput = (field) => {
-  const files = field.input.value;
-  return (
-    <div id="dropzone">
-      <Dropzone
-        name={field.name}
-        onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
-      >
-        <div>Drop a file here, or click to select file to upload.</div>
-      </Dropzone>
-      {field.meta.touched &&
-        field.meta.error &&
-        <span className="error">{field.meta.error}</span>}
-      {files && Array.isArray(files) && (
-        <ul>
-          { files.map((file, i) => <li key={i}>{file.name}</li>) }
-        </ul>
-      )}
-    </div>
-  );
-}
-
-// Validation for form entries
+// Simple Validation of form entries
 const validate = values => {
   const errors = {}
   if (!values.dataset_name) {
@@ -65,7 +31,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.handleGetDatasets = this.handleGetDatasets.bind(this);
-
   }
 
   handleGetDatasets() { 
@@ -75,17 +40,6 @@ class App extends Component {
  
   componentWillMount() {
     this.props.getCustomers()
-  }
-  // Get current list of customers
-  componentDidMount() {
-    
-    // axios.get('http://localhost:8000/customers/')
-    //   .then(response => {
-    //     //var clients = response.data.map(cust => (cust["id"],cust["name"]))
-    //     //console.log(response.data);
-    //     this.setState({customers: response.data})
-    //   })
-    //   .catch(error => console.log(error.response));
   }
 
   static propTypes = {
@@ -223,8 +177,6 @@ const mapDispatchToProps = dispatch => ({
   getCustomers: getCustomers(dispatch),
   getCustomerDatasets: getCustomerDatasets(dispatch),
 })
-
-
 
 App = reduxForm({
   form: 'simple',

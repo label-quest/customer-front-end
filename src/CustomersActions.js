@@ -7,7 +7,7 @@ export function getCustomerDatasets(dispatch) {
         .then(response => {
           if(response.status === 200) {
               console.log(response)
-              dispatch({ type: GET_CUSTOMER_DATASETS, dataset: response.data})
+              dispatch({ type: GET_CUSTOMER_DATASETS, dataset: response.data })
           }  
         })
         .catch(error => console.log(error.response))
@@ -21,7 +21,7 @@ export function getCustomers(dispatch) {
         .then(response => {
             //console.log(response)
             if(response.status === 200) {
-                dispatch({ type: GET_CUSTOMERS, customers: response.data})
+                dispatch({ type: GET_CUSTOMERS, customers: response.data })
             }
         })
         .catch(error => console.log(error.response));
