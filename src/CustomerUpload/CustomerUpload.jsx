@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useMemo, useEffect, useState} from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
 import axios from 'axios';
 
 import { userActions } from '../_actions';
 
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
+
+import {useDropzone} from 'react-dropzone'
 
 // Main CustomerUpload class
 class CustomerUpload extends React.Component {
@@ -65,8 +67,13 @@ class CustomerUpload extends React.Component {
             <Form.Control as="textarea" rows="3" />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Number of labels</Form.Label>
+            <Form.Label>Number of data points wanted for each label</Form.Label>
             <Form.Control as="input" />
+          </Form.Group>
+          <Form.Group>
+          <div className="dropzone">
+            <Dropzone />
+          </div>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
@@ -76,6 +83,118 @@ class CustomerUpload extends React.Component {
       </div> 
     ); 
   }
+}
+
+const baseStyle = {
+  width: '100%',
+  textAlign: 'center',
+  height: 200,
+  borderWidth: 2,
+  borderColor: '#666',
+  borderStyle: 'dashed',
+  borderRadius: 5
+}
+
+const activeStyle = {
+  borderStyle: 'solid',
+  borderColor: '#6c6',
+  backgroundColor: '#eee'
+}
+
+const acceptStyle = {
+  borderStyle: 'solid',
+  borderColor: '#00e676'
+}
+
+const rejectStyle = {
+  borderStyle: 'solid',
+  borderColor: '#ff1744'
+}
+
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16
+}
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+  marginRight: 8,
+  width: 100,
+  height: 100,
+  padding: 4,
+  boxSizing: 'border-box'
+}
+
+const thumbInner = {
+  display: 'flex',
+  minWidth: 0,
+  overflow: 'hidden'
+}
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%'
+}
+
+function Dropzone(props) {
+  const [files, setFiles] = useState([])
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject
+  } = useDropzone({accept: 'image/*',
+    onDrop: acceptedFiles => {
+      setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })))
+    }
+  })
+
+  const thumbs = files.map(file => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img
+          src={file.preview}
+          style={img}
+        />
+      </div>
+    </div>
+  ))
+
+  useEffect(() => () => {
+    // Make sure to revoke the data uris to avoid memory leaks
+    files.forEach(file => URL.revokeObjectURL(file.preview))
+  }, [files])
+
+  const style = useMemo(() => ({
+    ...baseStyle,
+    ...(isDragActive ? activeStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {})
+  }), [
+    isDragActive,
+    isDragReject
+  ])
+
+  return (
+    <section>
+      <div {...getRootProps({style})}>
+        <input {...getInputProps()} />
+        <p>Drag and drop some files here, or click to select files</p>
+      </div>
+      <aside style={thumbsContainer}>
+        {thumbs}
+      </aside>
+    </section> 
+  )
 }
 
 
