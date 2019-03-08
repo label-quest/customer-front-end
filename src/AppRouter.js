@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import App from "./App"
+import CustomerLandingView from "./views/CustomerLandingView"
 
 const Index = () => <h2>HOME</h2>
 
@@ -19,7 +19,7 @@ const AppRouter = () => (
             </nav>
 
             <Route path="/" exact component={Index} />
-            <Route path="/customer/" component={App} />
+            <Route path="/customer/" component={CustomerLandingView} />
         </div>
     </Router>
 );

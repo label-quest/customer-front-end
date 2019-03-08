@@ -1,12 +1,12 @@
 import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
-import CustomerDatasetView from './CustomerDatasetView'
 import axios from 'axios';
 
-import { getCustomers, getCustomerDatasets } from './CustomersActions'
-import renderDropzoneInput from "./DropzoneComponent"
-import renderField from "./RenderFieldComponent"
+import { getCustomers, getCustomerDatasets } from '../actions/CustomersActions'
+import CustomerDatasetView from './CustomerDatasetView'
+import renderDropzoneInput from "../components/DropzoneComponent"
+import renderField from "../components/RenderFieldComponent"
 
 const FILE_FIELD_NAME = 'files';
 
@@ -25,8 +25,8 @@ const validate = values => {
   return errors
 }
 
-// Main App class
-class App extends Component {
+// Main CustomerLandingView class
+class CustomerLandingView extends Component {
 
   constructor(props) {
     super(props)
@@ -86,7 +86,7 @@ class App extends Component {
     return (
       <div>
         <div className="container">
-          <img src={require("./labelQuestCustomerPortal.png")} alt="Portal Header" />
+          <img src={require("../labelQuestCustomerPortal.png")} alt="Portal Header" />
           <form id="contact" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <h3>LabelQuest Upload Form</h3>
             <div>
@@ -178,11 +178,11 @@ const mapDispatchToProps = dispatch => ({
   getCustomerDatasets: getCustomerDatasets(dispatch),
 })
 
-App = reduxForm({
+CustomerLandingView = reduxForm({
   form: 'simple',
   validate,
-})(App);
+})(CustomerLandingView);
 
-App = connect(mapStateToProps, mapDispatchToProps)(App)
+CustomerLandingView = connect(mapStateToProps, mapDispatchToProps)(CustomerLandingView)
 
-export default App;
+export default CustomerLandingView;

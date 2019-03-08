@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-//import PropTypes from 'prop-types'
-
 
 export default class CustomerDatasetView extends Component {
     
@@ -13,9 +11,10 @@ export default class CustomerDatasetView extends Component {
         let customer_datasets = []
         this.props.dataset.map((item, i) => 
         {
-            if (item.customer == 1) {
+            if (item.customer === 1) {
                     customer_datasets.push(item)     
             }
+            return null;
         })
         return (
             <div>

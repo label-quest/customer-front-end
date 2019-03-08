@@ -3,10 +3,9 @@ import { render, } from 'react-dom';
 import { createStore, combineReducers, } from 'redux';
 import { Provider, } from 'react-redux';
 import { reducer as formReducer, } from 'redux-form';
-import { customersReducer } from './CustomersReducer';
+import { customersReducer } from './reducers/CustomersReducer';
 
 
-import App from './App';
 import AppRouter from './AppRouter';
 
 require('./index.css');

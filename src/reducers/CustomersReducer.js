@@ -1,4 +1,4 @@
-import { GET_CUSTOMERS, GET_CUSTOMER_DATASETS } from './types'
+import { GET_CUSTOMERS, GET_CUSTOMER_DATASETS } from '../types'
 
 
 
