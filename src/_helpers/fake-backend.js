@@ -1,5 +1,5 @@
 export function configureFakeBackend() {
-    let users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' }];
+    let users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User', "datasets":[{"id":1,"name":"Test Dataset 1","description":"Test description 1","goal":10.0,"folder_path":"/","customer_id":1,"created_at":"2019-03-11T12:06:14.844Z","updated_at":"2019-03-11T12:06:14.844Z"},{"id":3,"name":"Test Dataset 3","description":"Test description 3","goal":50.0,"folder_path":"/","customer_id":1,"created_at":"2019-03-11T12:06:48.638Z","updated_at":"2019-03-11T12:06:48.638Z"}]}];
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {

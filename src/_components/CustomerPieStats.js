@@ -8,7 +8,7 @@ const styles = {
 
 const CustomerPieStats = () => (
     <div style={styles}>
-      <h2>Start editing t see some magic happen {"\u2728"}</h2>
+      <h2>Label share of total set {"\u2728"}</h2>
       <div style={{ height: 400 }}>
         <ResponsivePie
             data={[

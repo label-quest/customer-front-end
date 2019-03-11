@@ -6,6 +6,7 @@ import { history } from '../_helpers';
 import { alertActions } from '../_actions';
 import { PrivateRoute, CustomerPieStats, CustomerBarStats } from '../_components';
 import { HomePage } from '../HomePage';
+import { LandingPage } from '../LandingPage';
 import { LoginPage } from '../LoginPage';
 import { CustomerUpload } from '../CustomerUpload';
 
@@ -33,7 +34,7 @@ class App extends React.Component {
                         }
                         <Router history={history}>
                             <div>
-                                <PrivateRoute exact path="/" component={CustomerPieStats} />
+                                <PrivateRoute exact path="/" component={LandingPage} />
                                 <PrivateRoute exact path="/customer" component={CustomerUpload} />
                                 <Route path="/login" component={LoginPage} />
                             </div>

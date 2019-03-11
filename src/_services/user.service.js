@@ -9,6 +9,19 @@ export const userService = {
     getCustomers
 };
 
+// function login(username, password) {
+//     axios.post('http://localhost:3000/customer_authenticate/', {
+//         "username": username,
+//         "password": password,
+//       }).then(handleResponse)
+//         .then(user => {
+//             // store user details and jwt token in local storage to keep user logged in between page refreshes
+//             localStorage.setItem('user', JSON.stringify(user));
+
+//             return user;
+//         });
+// }
+
 function login(username, password) {
     const requestOptions = {
         method: 'POST',

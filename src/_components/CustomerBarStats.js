@@ -8,7 +8,7 @@ const styles = {
 
 const CustomerBarStats = () => (
     <div style={styles}>
-      <h2>Start editing t see some magic happen {"\u2728"}</h2>
+      <h2>7 days label statistics {"\u2728"}</h2>
       <div style={{ height: 400 }}>
       <ResponsiveBar
             data={[
