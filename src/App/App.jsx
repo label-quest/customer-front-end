@@ -10,7 +10,21 @@ import { LandingPage } from '../LandingPage';
 import { LoginPage } from '../LoginPage';
 import { CustomerUpload } from '../CustomerUpload';
 
-const Index = () => <h2>HOME</h2>
+
+// TESTING FOR PASSING PROPS
+// const Index2 = () => {
+//     return (
+//         <Index myValue={"TESTING22"} />
+//     );
+// };
+// const Index = props => {
+//     return (
+//         <p>{props.myValue}</p>
+//     );
+// };
+// const Ind = () => <h2>HELLO</h2>
+
+
 
 class App extends React.Component {
     constructor(props) {

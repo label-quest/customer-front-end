@@ -14,7 +14,10 @@ class LandingPage extends React.Component {
     render() {
 
         const { user, users, customers } = this.props;
-        //console.log(customers)
+        // {this.props.editable ? this.props.editableOpts : undefined}
+        const c = customers["customers"] ? customers["customers"][0] : undefined;
+        console.log(c)
+        
 
         return (
             <div>
@@ -24,9 +27,11 @@ class LandingPage extends React.Component {
                     <p>
                         <Link to="/login">Logout</Link>
                     </p>
+                    <p></p>
+                    <p></p>
                 </div>
-                    <CustomerPieStats />
-                    <CustomerBarStats />
+                    {/* <CustomerPieStats />
+                    <CustomerBarStats /> */}
             </div>
         );
     }
