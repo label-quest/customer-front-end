@@ -41,7 +41,7 @@ function getAll() {
 }
 
 function getCustomers() {
-    return axios.get('http://localhost:8000/customers', { headers: { 'Access-Control-Allow-Origin': '*' }})
+    return axios.get('http://localhost:8000/customers', { crossdomain: true, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With' }})
     //.then(handleResponse);
     // return function() {
     //     console.log("get customers called")

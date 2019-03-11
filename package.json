@@ -9,12 +9,20 @@
   "scripts": {
     "start": "webpack-dev-server --open"
   },
+  "devServer": {
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
   "dependencies": {
+    "@nivo/bar": "^0.52.1",
+    "@nivo/heatmap": "^0.52.1",
+    "@nivo/pie": "^0.52.1",
     "axios": "^0.18.0",
     "file-loader": "^3.0.1",
     "history": "^4.6.3",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.8.4",
     "react-dropzone": "^10.0.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
