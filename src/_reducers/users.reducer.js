@@ -20,16 +20,22 @@ export function users(state = {}, action) {
       return { 
         error: action.error
       };
-    case userConstants.GET_CUSTOMERS:
+    case userConstants.GET_CUSTOMERS_REQUEST:
       return {
-          ...state,
-              customers: action.customers
-      }
-    case userConstants.GET_CUSTOMER_DATASETS:
+        loading: true  
+      };
+    case userConstants.GET_CUSTOMERS_SUCCESS:
       return {
-          ...state,
-              dataset: action.dataset
-          }
+        items: action.customers
+      };
+    case userConstants.GET_CUSTOMERS_FAILURE:
+      return {
+        error: action.error  
+      };
+    // case userConstants.GET_CUSTOMER_DATASETS:
+    //   return {
+    //     dataset: action.dataset
+    //   };
     default:
       return state
   }

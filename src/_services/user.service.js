@@ -41,7 +41,9 @@ function getAll() {
 }
 
 function getCustomers() {
-    return axios.get('http://localhost:8000/customers', { crossdomain: true, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With' }})
+    return axios.get('http://localhost:3000/customers').then(handleBackendResponse)
+    
+    //, { crossdomain: true, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With' }}
     //.then(handleResponse);
     // return function() {
     //     console.log("get customers called")
@@ -56,9 +58,31 @@ function getCustomers() {
     // }
 }
 
+function handleBackendResponse(response) {
+    console.log("RESPONSE")
+    console.log(response)
+    //console.log(response.data)
+    if (response.status === 401) {
+        logout();
+        location.reload(true);
+
+        const error = (data && data.message) || response.statusText;
+        console.log("ERROR")
+        console.log(error)
+        return Promise.reject(error);
+    }
+
+    console.log("DATA DATA")
+    console.log(response.data)
+    return response.data
+}
+
 function handleResponse(response) {
+    console.log(response)
     return response.text().then(text => {
         const data = text && JSON.parse(text);
+        console.log("TESTTEST")
+        console.log(data)
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api

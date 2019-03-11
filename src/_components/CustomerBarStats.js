@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { render } from 'react-dom'
+import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 
 const styles = {
@@ -224,7 +223,7 @@ const CustomerBarStats = () => (
       </div>
     </div>
 );
-export default CustomerBarStats;
+export {CustomerBarStats};
 
 
 // class Container extends Component {

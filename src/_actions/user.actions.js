@@ -8,7 +8,7 @@ export const userActions = {
     login,
     logout,
     getAll,
-    getCustomerDatasets,
+    //getCustomerDatasets,
     getCustomers
 };
 
@@ -55,19 +55,6 @@ function getAll() {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getCustomerDatasets(dispatch) {
-    return function(cust) {
-        axios.get('http://localhost:8000/customers/3/data_sets/')
-        .then(response => {
-          if(response.status === 200) {
-              console.log(response)
-              dispatch({ type: GET_CUSTOMER_DATASETS, dataset: response.data })
-          }  
-        })
-        .catch(error => console.log(error.response))
-    }
-}
-
 function getCustomers() {
     return dispatch => {
         dispatch(request());
@@ -80,7 +67,19 @@ function getCustomers() {
     };
 
     function request() { return { type: userConstants.GET_CUSTOMERS_REQUEST }}
-    function success(customers) { return { type: userConstants.GETALL_SUCCESS, customers }}
+    function success(customers) { return { type: userConstants.GET_CUSTOMERS_SUCCESS, customers }}
     function failure(error) { return { type: userConstants.GET_CUSTOMERS_FAILURE, error }}
 }
 
+// function getCustomerDatasets(dispatch) {
+//     return function(cust) {
+//         axios.get('http://localhost:8000/customers/3/data_sets/')
+//         .then(response => {
+//           if(response.status === 200) {
+//               console.log(response)
+//               dispatch({ type: GET_CUSTOMER_DATASETS, dataset: response.data })
+//           }  
+//         })
+//         .catch(error => console.log(error.response))
+//     }
+// }

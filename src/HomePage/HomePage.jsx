@@ -18,7 +18,9 @@ class HomePage extends React.Component {
         // console.log(custs)
 
         const { user, users, customers } = this.props;
+        console.log(this.props)
         console.log(customers)
+
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h1>Hi {user.firstName}!</h1>
