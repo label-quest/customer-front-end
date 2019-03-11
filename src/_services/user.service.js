@@ -1,10 +1,12 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
+import axios from 'axios';
 
 export const userService = {
     login,
     logout,
-    getAll
+    getAll,
+    getCustomers
 };
 
 function login(username, password) {
@@ -36,6 +38,22 @@ function getAll() {
     };
 
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+}
+
+function getCustomers() {
+    return axios.get('http://localhost:8000/customers', { headers: { 'Access-Control-Allow-Origin': '*' }})
+    //.then(handleResponse);
+    // return function() {
+    //     console.log("get customers called")
+    //     axios.get('http://localhost:8000/customers/')
+    //     .then(response => {
+    //         //console.log(response)
+    //         if(response.status === 200) {
+    //             dispatch({ type: GET_CUSTOMERS, customers: response.data })
+    //         }
+    //     })
+    //     .catch(error => console.log(error.response));
+    // }
 }
 
 function handleResponse(response) {

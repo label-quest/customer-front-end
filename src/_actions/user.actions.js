@@ -68,16 +68,19 @@ function getCustomerDatasets(dispatch) {
     }
 }
 
-function getCustomers(dispatch) {
-    return function() {
-        console.log("get customers called")
-        axios.get('http://localhost:8000/customers/')
-        .then(response => {
-            //console.log(response)
-            if(response.status === 200) {
-                dispatch({ type: GET_CUSTOMERS, customers: response.data })
-            }
-        })
-        .catch(error => console.log(error.response));
-    }
+function getCustomers() {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getCustomers()
+            .then(
+                customers => dispatch(success(customers)),
+                error => dispatch(failure(error))
+            );
+    };
+
+    function request() { return { type: userConstants.GET_CUSTOMERS_REQUEST }}
+    function success(customers) { return { type: userConstants.GETALL_SUCCESS, customers }}
+    function failure(error) { return { type: userConstants.GET_CUSTOMERS_FAILURE, error }}
 }
+

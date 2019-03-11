@@ -7,10 +7,18 @@ import { userActions } from '../_actions';
 class HomePage extends React.Component {
     componentDidMount() {
         this.props.dispatch(userActions.getAll());
+        this.props.dispatch(userActions.getCustomers());
     }
 
     render() {
-        const { user, users } = this.props;
+        // Read state in order to propogate select field
+        // var custs = this.props.customers;
+        // //var dataset = this.props.dataset;
+        // console.log("here")
+        // console.log(custs)
+
+        const { user, users, customers } = this.props;
+        console.log(customers)
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h1>Hi {user.firstName}!</h1>
@@ -36,11 +44,12 @@ class HomePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { users, authentication } = state;
+    const { users, authentication, customers } = state;
     const { user } = authentication;
     return {
         user,
-        users
+        users,
+        customers
     };
 }
 
