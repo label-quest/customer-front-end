@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class CustomerDatasetView extends Component {
+class CustomerDatasetView extends Component {
     
     constructor(props) {
         super(props)

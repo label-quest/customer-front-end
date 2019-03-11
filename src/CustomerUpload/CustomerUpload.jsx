@@ -3,10 +3,11 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
 import axios from 'axios';
 
-import { getCustomers, getCustomerDatasets } from '../actions/CustomersActions'
-import CustomerDatasetView from './CustomerDatasetView'
-import renderDropzoneInput from "../components/DropzoneComponent"
-import renderField from "../components/RenderFieldComponent"
+import { userActions } from '../_actions';
+
+import CustomerDatasetView from '../_components/CustomerDatasetView'
+import renderDropzoneInput from "../_components/DropzoneComponent"
+import renderField from "../_components/RenderFieldComponent"
 
 const FILE_FIELD_NAME = 'files';
 
@@ -25,8 +26,8 @@ const validate = values => {
   return errors
 }
 
-// Main CustomerLandingView class
-class CustomerLandingView extends Component {
+// Main CustomerUpload class
+class CustomerUpload extends Component {
 
   constructor(props) {
     super(props)
@@ -35,17 +36,19 @@ class CustomerLandingView extends Component {
 
   handleGetDatasets() { 
     console.log("Handler ")
-    this.props.getCustomerDatasets("3")
+    this.props.dispatch(userActions.getCustomerDatasets("3"))
+    //this.props.getCustomerDatasets("3")
   }
  
   componentWillMount() {
-    this.props.getCustomers()
+    this.props.dispatch(userActions.getCustomers())
+    //this.props.getCustomers()
   }
 
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-  };
+  // static propTypes = {
+  //   handleSubmit: PropTypes.func.isRequired,
+  //   reset: PropTypes.func.isRequired,
+  // };
 
   // POST customer ID and images archive
   // END-POINT uses cust ID.
@@ -173,16 +176,16 @@ const mapStateToProps = state => ({
   dataset: state.customers.dataset,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getCustomers: getCustomers(dispatch),
-  getCustomerDatasets: getCustomerDatasets(dispatch),
-})
+// const mapDispatchToProps = dispatch => ({
+//   getCustomers: getCustomers(dispatch),
+//   getCustomerDatasets: getCustomerDatasets(dispatch),
+// })
 
-CustomerLandingView = reduxForm({
+CustomerUpload = reduxForm({
   form: 'simple',
   validate,
-})(CustomerLandingView);
+})(CustomerUpload);
 
-CustomerLandingView = connect(mapStateToProps, mapDispatchToProps)(CustomerLandingView)
-
-export default CustomerLandingView;
+//const connectedCustomerUpload = connect(mapStateToProps, mapDispatchToProps)(CustomerUpload)
+const connectedCustomerUpload = connect(mapStateToProps)(CustomerUpload)
+export {connectedCustomerUpload as CustomerUpload};

@@ -23,5 +23,3 @@ export const renderDropzoneInput = (field) => {
       </div>
     );
   }
-
-  export default renderDropzoneInput;
