@@ -11,14 +11,8 @@ class HomePage extends React.Component {
     }
 
     render() {
-        // Read state in order to propogate select field
-        // var custs = this.props.customers;
-        // //var dataset = this.props.dataset;
-        // console.log("here")
-        // console.log(custs)
 
         const { user, users, customers } = this.props;
-        console.log(this.props)
         console.log(customers)
 
         return (
