@@ -61,6 +61,8 @@ function getCustomers() {
 }
 
 function handleLoginResponse(response) {
+    console.log("CHECK THIS RESPONSE")
+    console.log(response)
     if (!response.data.ok) {  
         if (response.status === 401) {
             logout();
@@ -69,7 +71,7 @@ function handleLoginResponse(response) {
         const error = "Invalid username or password";
         return Promise.reject(error);
     }
-    return JSON.parse(response.config["data"])
+    return response.data
 }
 
 function handleGetResponse(response) {

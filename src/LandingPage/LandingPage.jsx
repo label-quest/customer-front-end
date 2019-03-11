@@ -15,7 +15,9 @@ class LandingPage extends React.Component {
 
         const { user, users, customers } = this.props;
         // {this.props.editable ? this.props.editableOpts : undefined}
-        const c = customers["customers"] ? customers["customers"][0] : undefined;
+        console.log("LOGGED IN USER")
+        console.log(user)
+        const c = customers["customers"] ? customers["customers"] : undefined;
         console.log(c)
         
 
