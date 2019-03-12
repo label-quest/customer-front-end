@@ -23,7 +23,7 @@ class LandingPage extends React.Component {
 
         return (
             <div className="col-md-12">
-                <div className="col-md-6 col-md-offset-4">
+                <div className="col-md-12 namecontainer">
                     <h1>Hi, {user.firstName}!</h1>
                 </div>
                 <div className="col-md-12">

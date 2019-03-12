@@ -46,7 +46,7 @@ class App extends React.Component {
                 <Navigation props={this.props}/>
                 <div className="jumbotron">
                     <div className="container">
-                        <div className="col-sm-8 col-sm-offset-2">
+                        <div className="col-lg-12 col-md-12 col-sm-12 maincontainer">
                             {alert.message &&
                                 <div className={`alert ${alert.type}`}>{alert.message}</div>
                             }

@@ -19,3 +19,25 @@ a.nav-link {
 nav.navbar.navbar-expand-lg.navbar-light.bg-light{
 	background-color: aliceblue !important;
 }
+
+.maincontainer{
+    padding: 50px;
+}
+
+@media (max-width: 988px){
+.collapse:not(.show){
+    display: none !important;
+}
+
+a.nav-link {
+    font-size: 22px;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #c3c3c3;
+    margin: inherit;
+}
+}
+
+.namecontainer{
+    text-align: center;
+}
