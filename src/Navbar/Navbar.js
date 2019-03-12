@@ -27,7 +27,7 @@ class Navigation extends React.Component {
 
 		if(this.props.user){
 			menuItems.push(
-				<Nav.Link key={'logout'} href='/logout'>Logout</Nav.Link>
+				<Nav.Link key={'logout'} href='/login'>Logout</Nav.Link>
 			);
 		}
 
