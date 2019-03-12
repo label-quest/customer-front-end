@@ -16,7 +16,7 @@ const CustomerPieStats = props => {
     console.log(props);
     return (
         <div style={styles}>
-        <h2>Label share of total set {"\u2728"}</h2>
+        <h2>Label share of the total set</h2>
         <div style={{ height: 400 }}>
             <ResponsivePie
                 data={

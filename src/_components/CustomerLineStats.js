@@ -10,7 +10,7 @@ const styles = {
 const CustomerLineStats = props => {
   return(
     <div style={styles}>
-      <h2>Line Stats {"\u2728"}</h2>
+      <h2>Label progression</h2>
       <div style={{ height: 400 }}>
         <ResponsiveLine
             data={props.data.overallstatsjson}
