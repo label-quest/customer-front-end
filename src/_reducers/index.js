@@ -6,6 +6,7 @@ import { alert } from './alert.reducer';
 import { customers } from './customers.reducer';
 import { labelstatsjson } from './labelstatsjson.reducer';
 import { overallstatsjson } from './overallstatsjson.reducer';
+import { progressjson } from './progressjson.reducer';
 
 const rootReducer = combineReducers({
   authentication,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   customers,
   overallstatsjson,
   labelstatsjson,
+  progressjson,
   alert,
 });
 

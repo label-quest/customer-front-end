@@ -8,11 +8,13 @@ export function users(state = {}, action) {
       };
     case userConstants.GETALL_SUCCESS:
       return {
-        items: action.users
+        items: action.users,
+        loading: false
       };
     case userConstants.GETALL_FAILURE:
       return { 
-        error: action.error
+        error: action.error,
+        loading: false
       };
     // case userConstants.GET_CUSTOMER_DATASETS:
     //   return {

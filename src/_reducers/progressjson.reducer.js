@@ -1,17 +1,17 @@
 import { userConstants } from '../_constants';
 
-export function customers(state = {}, action) {
+export function progressjson(state = {}, action) {
   switch (action.type) {
-    case userConstants.GET_CUSTOMERS_REQUEST:
+    case userConstants.GET_PROGRESS_STATS_REQUEST:
       return {
         loading: true
       };
-    case userConstants.GET_CUSTOMERS_SUCCESS:
+    case userConstants.GET_PROGRESS_STATS_SUCCESS:
       return {
-        customers: action.customers,
+        progressjson: action.progressjson,
         loading: false
       };
-    case userConstants.GET_CUSTOMERS_FAILURE:
+    case userConstants.GET_PROGRESS_STATS_FAILURE:
       return {
         error: action.error,
         loading: false

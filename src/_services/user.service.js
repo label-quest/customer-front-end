@@ -8,7 +8,8 @@ export const userService = {
     getAll,
     getCustomer,
     getLabelStats,
-    getOverallStats
+    getOverallStats,
+    getProgress
 };
 
 function login(username, password) {
@@ -56,30 +57,28 @@ function getAll() {
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
-// export function getCustomers(dispatch){
-// 	return () => {
-// 		axios.get('http://localhost:3000/customers')
-// 		.then(handleGetResponse)
-// 		.catch()
-//     }
-// }
+
 function getCustomer(userId) {
     return axios.get('http://localhost:3000/customers/' + userId).then(handleGetResponse)
 }
 
 // takes in an array of dataset ids. This should return a nested
 // set from the endpoint containing a get for all ids
-function getLabelStats(userId, customers) {
+function getLabelStats(userId) {
     console.log("USER ID AND CUSTOMER")
     console.log(userId)
-    console.log(customers)
     // iterate over all ids HERE
     return axios.get('http://localhost:3000/datasets/' + userId + '/label_stats').then(handleGetResponse)
 }
 
 // takes in a userId and returns dataset stats for that id
 function getOverallStats(userId) {
-    return axios.get('http://localhost:3000/customers/' + userId + 'overall_stats').then(handleGetResponse)
+    return axios.get('http://localhost:3000/customers/' + userId + '/overall_stats').then(handleGetResponse)
+}
+
+// takes in a userId and returns dataset stats for that id
+function getProgress(userId) {
+    return axios.get('http://localhost:3000/datasets/' + userId + '/progress').then(handleGetResponse)
 }
 
 function handleLoginResponse(response) {

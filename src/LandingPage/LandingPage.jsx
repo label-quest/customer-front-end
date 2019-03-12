@@ -6,13 +6,12 @@ import { userActions } from '../_actions';
 import { CustomerPieStats, CustomerBarStats } from '../_components';
 
 class LandingPage extends React.Component {
-   
 
     componentDidMount() {
         const { user, loading, customers } = this.props;
         this.props.dispatch(userActions.getCustomer(user.id));
-        this.props.dispatch(userActions.getOverallStats(user.id)); // set overallstats state
-        
+        this.props.dispatch(userActions.getOverallStats(user.id));
+        this.props.dispatch(userActions.getProgress(user.id));
         // if (customers["customers"]) {
         //     const label_inds = displayPieStats(customers)
         //     console.log("MOUNT HERE")
@@ -20,20 +19,21 @@ class LandingPage extends React.Component {
         // }
         
         //const label_inds = {customers["customers"] ? displayPieStats(customers) : ''}
-        //this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
+        this.props.dispatch(userActions.getLabelStats(user.id)); // set labelStats state
         
 
     }
-
+    /*
     componentWillReceiveProps() {
         
         if (this.props.customers["customers"] && !this.props.labelstatsjson.loading && !this.props.labelstatsjson.labelstatsjson) {
-            const label_inds = displayPieStats(this.props.customers)
+            //const label_inds = displayPieStats(this.props.customers)
             this.props.dispatch(userActions.getLabelStats(this.props.user.id, this.props.customers))
         }
-
+        console.log("labelstats");
         console.log(this.props.labelstatsjson)
     }
+    */
 
     render() {
 
@@ -43,7 +43,7 @@ class LandingPage extends React.Component {
         //console.log("LABEL STATS JSON")
         //console.log(labelstatsjson)
         //displayPieStats(user.id, c);
-       
+        console.log("labelstats render, " + Object.values(labelstatsjson));
         console.log(labelstatsjson)
         //console.log(overallstatsjson)
         // console.log("CUSTOMERSSSSS")
@@ -64,7 +64,11 @@ class LandingPage extends React.Component {
                     <h1>Hi, {user.firstName}!</h1>
                 </div>
                 <div className="col-md-6 col-md-offset-3">
-                    {customers["customers"] ? <CustomerPieStats userId={user.id} customers={customers} /> : ''}
+                    {(customers["customers"]&&labelstatsjson.loading == false) ? <CustomerPieStats userId={user.id} customers={customers} data={labelstatsjson} /> : ''}
+                </div>
+
+                <div className="col-md-6 col-md-offset-3">
+                    {/* (customers["customers"]&&labelstatsjson.loading == false) ? <CustomerBarStats userId={user.id} customers={customers} data={labelstatsjson} /> : '' */}
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
