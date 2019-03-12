@@ -7,7 +7,8 @@ const styles = {
     textAlign: "center"
 };
 
-const CustomerLineStats = () => (
+const CustomerLineStats = props => {
+    return (
     <div style={styles}>
       <h2>Line Stats {"\u2728"}</h2>
       <div style={{ height: 400 }}>
@@ -316,5 +317,5 @@ const CustomerLineStats = () => (
         />
       </div>
     </div>
-);
+)};
 export {CustomerLineStats};

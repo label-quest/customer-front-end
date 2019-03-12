@@ -45,7 +45,7 @@ class LandingPage extends React.Component {
         //displayPieStats(user.id, c);
        
         console.log(labelstatsjson)
-        //console.log(overallstatsjson)
+        console.log(overallstatsjson)
         // console.log("CUSTOMERSSSSS")
         // console.log(customers)
         // console.log("LABELSTATSSSS")
@@ -68,8 +68,9 @@ class LandingPage extends React.Component {
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
-                    <CustomerLineStats />
+                    {/* {overallstatsjson.overallstatsjson ? <CustomerLineStats overallstatsjson={overallstatsjson} /> : ''} */}
                     {/* {this.displayPieStats(user.id, c)} */}
+                    <CustomerLineStats />
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}
             </div>
