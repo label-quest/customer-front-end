@@ -6,28 +6,23 @@ import { userActions } from '../_actions';
 import { CustomerPieStats, CustomerBarStats } from '../_components';
 
 class LandingPage extends React.Component {
+   
+
     componentDidMount() {
-        const { user, loading } = this.props;
-
-
+        const { user, loading, customers } = this.props;
         this.props.dispatch(userActions.getCustomer(user.id));
-        //this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
         this.props.dispatch(userActions.getOverallStats(user.id)); // set overallstats state
+        
+        //this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
+        
 
     }
-
-    // componentDidUpdate() {
-    //     const { user, customers, labelstatsjson, loading } = this.props;
-    //     if (customers && !loading) {
-    //         this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
-    //     }
-    // }
 
 
     render() {
 
         const { user, labelstatsjson, overallstatsjson, customers } = this.props;
-        const c = customers["customers"] ? customers["customers"] : undefined;
+        //const c = customers["customers"] ? customers["customers"] : undefined;
         //console.log(c)
         //console.log("LABEL STATS JSON")
         //console.log(labelstatsjson)
@@ -39,7 +34,7 @@ class LandingPage extends React.Component {
         // console.log(customers)
         // console.log("LABELSTATSSSS")
         // console.log(labelstatsjson)
-        console.log(c)
+        //console.log(c)
 
         //displayPieStats(user.id, customers["customers"])
         
@@ -59,8 +54,8 @@ class LandingPage extends React.Component {
                     <p></p>
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
-                    <CustomerPieStats userId={user.id} customers={c} />
-                    <CustomerBarStats />
+                    {customers["customers"] ? <CustomerPieStats userId={user.id} customers={customers} /> : ''}
+                    
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}
             </div>
@@ -70,45 +65,38 @@ class LandingPage extends React.Component {
 }
 
 function displayPieStats(userId, customers) {
-    console.log("FUNCTION PIE CHART")
-    console.log(userId)
 
     //const { labelstatsjson } = this.props;
+    console.log("HELLO I'M IN HERE")
+    console.log(customers)
+
+    // get the customer log for current user
+    let filteredCustomers = customers.filter(customer => {
+        return customer.id === userId;
+    });
+    console.log(filteredCustomers)
+
+    // retrieve their datasets
+    let datasets = filteredCustomers[0].datasets
+    console.log(datasets)
     
-    if (customers) {
-        console.log("HELLO I'M IN HERE")
-        console.log(customers)
+    // get the ids of their dataset
+    let label_stats_ind = []
+    datasets.forEach(element => {
+        label_stats_ind.push(element.id);
+    });
+    console.log(label_stats_ind)
 
-        // get the customer log for current user
-        let filteredCustomers = customers.filter(customer => {
-            return customer.id === userId;
-        });
-        console.log(filteredCustomers)
+    // Dispatch below gets the label_stats for all datasets owned and place
+    // in labelstatsjson prop.
+    // {{label_stats1},{label_stats2},...}
 
-        // retrieve their datasets
-        let datasets = filteredCustomers[0].datasets
-        console.log(datasets)
-        
-        // get the ids of their dataset
-        let label_stats_ind = []
-        datasets.forEach(element => {
-            label_stats_ind.push(element.id);
-        });
-        console.log(label_stats_ind)
+    //dispatch(userActions.getLabelStats(label_stats_ind));
+    //console.log(labelstatsjson)
 
-        // Dispatch below gets the label_stats for all datasets owned and place
-        // in labelstatsjson prop.
-        // {{label_stats1},{label_stats2},...}
+    // Using labelstatsjson generate a Pie chart for each item
+    // using CustomerPieStats.js
 
-        //dispatch(userActions.getLabelStats(label_stats_ind));
-        //console.log(labelstatsjson)
-
-        // Using labelstatsjson generate a Pie chart for each item
-        // using CustomerPieStats.js
-        return
-    }
-
-    return
 }
 
 
