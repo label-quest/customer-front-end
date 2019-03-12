@@ -8,11 +8,7 @@ const styles = {
 };
 
 const CustomerLineStats = props => {
-<<<<<<< HEAD
-    return (
-=======
   return(
->>>>>>> 51d20521d6bdd07d9ddebb5c2c0eefa7f602f6d5
     <div style={styles}>
       <h2>Line Stats {"\u2728"}</h2>
       <div style={{ height: 400 }}>
@@ -90,10 +86,6 @@ const CustomerLineStats = props => {
         />
       </div>
     </div>
-<<<<<<< HEAD
-)};
-=======
 );
 };
->>>>>>> 51d20521d6bdd07d9ddebb5c2c0eefa7f602f6d5
 export {CustomerLineStats};

@@ -80,12 +80,8 @@ class LandingPage extends React.Component {
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
-<<<<<<< HEAD
-                    {/* {overallstatsjson.overallstatsjson ? <CustomerLineStats overallstatsjson={overallstatsjson} /> : ''} */}
-=======
->>>>>>> 51d20521d6bdd07d9ddebb5c2c0eefa7f602f6d5
                     {/* {this.displayPieStats(user.id, c)} */}
-                    <CustomerLineStats />
+                    {/* <CustomerLineStats /> */}
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}
             </div>
