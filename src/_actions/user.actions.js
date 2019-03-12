@@ -30,7 +30,6 @@ function login(username, password) {
                 }
             );
     };
-
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
@@ -44,14 +43,12 @@ function logout() {
 function getAll() {
     return dispatch => {
         dispatch(request());
-
         userService.getAll()
             .then(
                 users => dispatch(success(users)),
                 error => dispatch(failure(error))
             );
     };
-
     function request() { return { type: userConstants.GETALL_REQUEST } }
     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
@@ -83,7 +80,6 @@ function getCustomer(userId) {
 function getLabelStats(index) {
     return dispatch => {
         dispatch(request());
-
         userService.getLabelStats(index)
             .then(
                 labelstatsjson => dispatch(success(labelstatsjson)),
@@ -99,14 +95,12 @@ function getLabelStats(index) {
 function getOverallStats(userId) {
     return dispatch => {
         dispatch(request());
-
         userService.getOverallStats(userId)
             .then(
                 overallstatsjson => dispatch(success(overallstatsjson)),
                 error => dispatch(failure(error))
             );
     };
-
     function request() { return { type: userConstants.GET_OVERALL_STATS_REQUEST }}
     function success(overallstatsjson) { return { type: userConstants.GET_OVERALL_STATS_SUCCESS, overallstatsjson }}
     function failure(error) { return { type: userConstants.GET_OVERALL_STATS_FAILURE, error }}
@@ -121,7 +115,6 @@ function getProgress(userId) {
                 error => dispatch(failure(error))
             );
     };
-
     function request() { return { type: userConstants.GET_PROGRESS_STATS_REQUEST }}
     function success(progressjson) { return { type: userConstants.GET_PROGRESS_STATS_SUCCESS, progressjson }}
     function failure(error) { return { type: userConstants.GET_PROGRESS_STATS_FAILURE, error }}

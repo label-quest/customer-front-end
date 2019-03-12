@@ -1,48 +1,20 @@
-import React, { Component, PropTypes, } from 'react';
+import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
 import axios from 'axios';
 
 import { userActions } from '../_actions';
 
-import CustomerDatasetView from '../_components/CustomerDatasetView'
-import renderDropzoneInput from "../_components/DropzoneComponent"
-import renderField from "../_components/RenderFieldComponent"
-
-const FILE_FIELD_NAME = 'files';
-
-// Simple Validation of form entries
-const validate = values => {
-  const errors = {}
-  if (!values.dataset_name) {
-    errors.dataset_name = 'Required'
-  } 
-  if (!values.description) {
-    errors.description = 'Required'
-  }
-  if (!values.goal) {
-    errors.goal = 'Required'
-  }
-  return errors
-}
+import { Form, Row, Col, Button } from 'react-bootstrap'
 
 // Main CustomerUpload class
-class CustomerUpload extends Component {
+class CustomerUpload extends React.Component {
 
   constructor(props) {
     super(props)
-    this.handleGetDatasets = this.handleGetDatasets.bind(this);
-  }
-
-  handleGetDatasets() { 
-    console.log("Handler ")
-    this.props.dispatch(userActions.getCustomerDatasets("3"))
-    //this.props.getCustomerDatasets("3")
   }
  
   componentWillMount() {
-    this.props.dispatch(userActions.getCustomers())
-    //this.props.getCustomers()
   }
 
   // static propTypes = {
@@ -76,116 +48,50 @@ class CustomerUpload extends Component {
   }
 
   render() {
-    const {
-      handleSubmit,
-      reset,
-    } = this.props;
-
-    // Read state in order to propogate select field
-    var custs = this.props.customers;
-    var dataset = this.props.dataset;
-    console.log(custs)
-
     return (
-      <div>
-        <div className="container">
-          <img src={require("../labelQuestCustomerPortal.png")} alt="Portal Header" />
-          <form id="contact" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <h3>LabelQuest Upload Form</h3>
-            <div>
-            
-            <label>Customer Name (testing - will be replaced by LOGIN) </label>
-            <div>
-              <Field
-                  name="cust_id"
-                  component="select">
-                  <option value="">Select a customer...</option>
-                  {custs !== undefined ? custs.map(cust => (
-                  // Customer name is mapped to the ID for posting
-                  <option value={cust["id"]} key={cust["id"]}>
-                    {cust["name"]}
-                  </option>
-                )):console.log("error customers undefined")}
-              </Field>
-            </div>
-
-            <div>
-              <Field
-                name="dataset_name"
-                component={renderField}
-                type="text"
-                label="Dataset Name"
-              />
-            </div>
-
-            <div>
-              <Field
-                name="description"
-                component={renderField}
-                type="text"
-                label="Dataset description"
-              />
-            </div>
-
-            <div>
-              <Field
-                name="goal"
-                component={renderField}
-                type="number"
-                label="Goal"
-              />
-            </div>
-          </div>
-
-            <div id="upload-area">
-              <label htmlFor={FILE_FIELD_NAME}>Upload Label Image Archive</label>
-              <Field
-                name={FILE_FIELD_NAME}
-                component={renderDropzoneInput}
-              />
-            </div>
-            <div>
-              <button type="submit">
-                Upload
-              </button>
-              <button onClick={reset}>
-                Clear Values
-              </button>
-            </div>
-          </form>
-        </div>
-        
-        <div>
-          <p>-----</p>
-          <button onClick={this.handleGetDatasets}>
-          See Customer Datasets
-          </button>
-        </div>
-        <div>
-          <CustomerDatasetView
-          dataset = {dataset} />
-          
-        </div>
+      <div className="col-md-12">
+      <div className="formcontainer">
+        <Form>
+          <Form.Group controlId="exampleForm.ControlInput1">
+            <Form.Label>Dataset name</Form.Label>
+            <Form.Control type="text" placeholder="Dataset name" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Description</Form.Label>
+            <Form.Control as="textarea" rows="3" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Goals</Form.Label>
+            <Form.Control as="textarea" rows="3" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Number of labels</Form.Label>
+            <Form.Control as="input" />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </div>
       </div> 
     ); 
   }
 }
 
-const mapStateToProps = state => ({
-  customers: state.customers.customers,
-  dataset: state.customers.dataset,
-});
 
-// const mapDispatchToProps = dispatch => ({
-//   getCustomers: getCustomers(dispatch),
-//   getCustomerDatasets: getCustomerDatasets(dispatch),
-// })
+function mapStateToProps(state) {
+    const { users, authentication, customers, progressjson, labelstatsjson, overallstatsjson, dataset } = state;
+    const { user } = authentication;
+    return {
+        user,
+        users,
+        progressjson,
+        labelstatsjson,
+        overallstatsjson,
+        customers,
+        dataset
+    };
+}
 
-CustomerUpload = reduxForm({
-  form: 'simple',
-  validate,
-})(CustomerUpload);
-
-//const connectedCustomerUpload = connect(mapStateToProps, mapDispatchToProps)(CustomerUpload)
-const connectedCustomerUpload = connect(mapStateToProps)(CustomerUpload)
-export {connectedCustomerUpload as CustomerUpload};
+const connectedCustomerUpload = connect(mapStateToProps)(CustomerUpload);
+export { connectedCustomerUpload as CustomerUpload }; 
