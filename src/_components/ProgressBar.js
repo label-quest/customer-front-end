@@ -5,9 +5,9 @@ const ProgressBarComponent = props => {
 	console.log("props")
 	console.log(props);
     return (
-    	<div>
+    	<div className="progressbar">
     	<h2>Overall progress, {props.data.progressjson.progress}%</h2>
-        <ProgressBar now={props.data.progressjson.progress} />
+        <ProgressBar animated now={props.data.progressjson.progress} />
         </div>
     )
 };

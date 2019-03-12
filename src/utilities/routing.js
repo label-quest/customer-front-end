@@ -4,7 +4,7 @@ import {Route, Switch, Redirect} from 'react-router';
 const loggedInNavbarPages = [
 	{
 		name: 'Customers',
-		path: '/customers',
+		path: '/',
 		icon: ''
 	}
 ];

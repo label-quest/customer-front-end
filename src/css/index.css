@@ -1,3 +1,21 @@
-h1{
-    font-size: 200px;
+a.navbar-brand {
+    font-size: 34px;
+}
+
+a.nav-link {
+    font-size: 22px;
+    border-right: 1px solid #c3c3c3;
+    border-left: 1px solid #c3c3c3;
+    margin: inherit;
+}
+
+.progressbar{
+	padding: 20px;
+    background-color: aliceblue;
+    margin-bottom: 30px;
+    box-shadow: 5px 10px #888888
+}
+
+nav.navbar.navbar-expand-lg.navbar-light.bg-light{
+	background-color: aliceblue !important;
 }
