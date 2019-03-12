@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
-import { CustomerPieStats, CustomerBarStats } from '../_components';
+import { CustomerPieStats, CustomerBarStats, ProgressBar, CustomerLineStats } from '../_components';
 
 class LandingPage extends React.Component {
 
@@ -11,6 +11,7 @@ class LandingPage extends React.Component {
         const { user, loading, customers } = this.props;
         this.props.dispatch(userActions.getCustomer(user.id));
         this.props.dispatch(userActions.getOverallStats(user.id));
+        this.props.dispatch(userActions.getLabelStats(user.id));
         this.props.dispatch(userActions.getProgress(user.id));
         // if (customers["customers"]) {
         //     const label_inds = displayPieStats(customers)
@@ -19,7 +20,6 @@ class LandingPage extends React.Component {
         // }
         
         //const label_inds = {customers["customers"] ? displayPieStats(customers) : ''}
-        this.props.dispatch(userActions.getLabelStats(user.id)); // set labelStats state
         
 
     }
@@ -72,7 +72,7 @@ class LandingPage extends React.Component {
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
-                    
+                    <CustomerLineStats />
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}

@@ -80,11 +80,11 @@ function getCustomer(userId) {
 }
 
 // takes in an array of datasetIds
-function getLabelStats(userId, customers) {
+function getLabelStats(index) {
     return dispatch => {
         dispatch(request());
 
-        userService.getLabelStats(userId)
+        userService.getLabelStats(index)
             .then(
                 labelstatsjson => dispatch(success(labelstatsjson)),
                 error => dispatch(failure(error))
