@@ -9,6 +9,7 @@ import { HomePage } from '../HomePage';
 import { LandingPage } from '../LandingPage';
 import { LoginPage } from '../LoginPage';
 import { CustomerUpload } from '../CustomerUpload';
+import { CustomerUploads } from '../CustomerUploads';
 
 import Navigation from '../Navbar/Navbar';
 
@@ -53,7 +54,7 @@ class App extends React.Component {
                             <Router history={history}>
                                 <div>
                                     <PrivateRoute exact path="/" component={LandingPage} />
-                                    <PrivateRoute exact path="/uploadData" component={CustomerUpload} />
+                                    <PrivateRoute exact path="/uploadData" component={CustomerUploads} />
                                     <PrivateRoute exact path="/uploadLabels" component={Ind} />
                                     <Route path="/login" component={LoginPage} />
                                 </div>
