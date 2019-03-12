@@ -46,7 +46,7 @@ class LandingPage extends React.Component {
         //console.log(labelstatsjson)
         //displayPieStats(user.id, c);
         console.log("labelstats render, " + Object.values(labelstatsjson));
-        console.log(progressjson)
+        console.log(progressjson.progressjson)
         //console.log(overallstatsjson)
         // console.log("CUSTOMERSSSSS")
         // console.log(customers)
@@ -75,7 +75,8 @@ class LandingPage extends React.Component {
                 </div>
 
                 <div className="col-sm-12 col-md-12 col-lg-6">
-                    <ProgressBarComponent />
+                    {progressjson.loading == false ? <ProgressBarComponent progress={progressjson.progressjson.progress} /> : ''}
+                    
                     {(customers["customers"]&&overallstatsjson.loading == false) ? <CustomerLineStats userId={user.id} customers={customers} data={overallstatsjson} /> : ''}
                 </div>
                 </div>
