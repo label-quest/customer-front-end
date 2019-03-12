@@ -15,10 +15,12 @@ class LandingPage extends React.Component {
 
         const { user, users, customers } = this.props;
         // {this.props.editable ? this.props.editableOpts : undefined}
-        console.log("LOGGED IN USER")
-        console.log(user)
+        //console.log("USER ID")
+        //console.log(user.id)
+
+        // check that the customers have been fetched
         const c = customers["customers"] ? customers["customers"] : undefined;
-        console.log(c)
+        //console.log(c)
         
 
         return (
@@ -32,10 +34,34 @@ class LandingPage extends React.Component {
                     <p></p>
                     <p></p>
                 </div>
-                    {/* <CustomerPieStats />
-                    <CustomerBarStats /> */}
+                    {displayPieStats(user.id, c)}
+                    {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
+                    {/* <CustomerBarStats /> */}
             </div>
         );
+    }
+}
+
+function displayPieStats(userId, customers) {
+    console.log("FUNCTION PIE CHART")
+    console.log(userId)
+    
+    if (customers) {
+        console.log(customers)
+        let filteredCustomers = customers.filter(customer => {
+            return customer.id === userId;
+        });
+        console.log(filteredCustomers)
+
+        let datasets = filteredCustomers[0].datasets
+        console.log(datasets)
+        
+        let label_stats_ind = []
+        datasets.forEach(element => {
+            label_stats_ind.push(element.id);
+        });
+
+        console.log(label_stats_ind)
     }
 }
 
