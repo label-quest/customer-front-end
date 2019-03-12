@@ -10,6 +10,8 @@ import { LandingPage } from '../LandingPage';
 import { LoginPage } from '../LoginPage';
 import { CustomerUpload } from '../CustomerUpload';
 
+import Navigation from '../Navbar/Navbar';
+
 
 // TESTING FOR PASSING PROPS
 // const Index2 = () => {
@@ -40,19 +42,22 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         return (
-            <div className="jumbotron">
-                <div className="container">
-                    <div className="col-sm-8 col-sm-offset-2">
-                        {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                        <Router history={history}>
-                            <div>
-                                <PrivateRoute exact path="/" component={LandingPage} />
-                                <PrivateRoute exact path="/customer" component={CustomerUpload} />
-                                <Route path="/login" component={LoginPage} />
-                            </div>
-                        </Router>
+            <div>
+                <Navigation props={this.props}/>
+                <div className="jumbotron">
+                    <div className="container">
+                        <div className="col-sm-8 col-sm-offset-2">
+                            {alert.message &&
+                                <div className={`alert ${alert.type}`}>{alert.message}</div>
+                            }
+                            <Router history={history}>
+                                <div>
+                                    <PrivateRoute exact path="/" component={LandingPage} />
+                                    <PrivateRoute exact path="/customer" component={CustomerUpload} />
+                                    <Route path="/login" component={LoginPage} />
+                                </div>
+                            </Router>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -43,19 +43,15 @@ class LandingPage extends React.Component {
         
 
         return (
-            <div>
+            <div className="col-md-12">
                 <div className="col-md-6 col-md-offset-3">
-                    <h1>Hi {user.firstName}!</h1>
-                    <p>You're logged in with React & JWT!!</p>
-                    <p>
-                        <Link to="/login">Logout</Link>
-                    </p>
-                    <p></p>
-                    <p></p>
+                    <h1>Hi, {user.firstName}!</h1>
                 </div>
-                    {/* {this.displayPieStats(user.id, c)} */}
+                <div className="col-md-6 col-md-offset-3">
                     {customers["customers"] ? <CustomerPieStats userId={user.id} customers={customers} /> : ''}
+                </div>
                     
+                    {/* {this.displayPieStats(user.id, c)} */}
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}
             </div>
