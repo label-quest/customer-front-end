@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { CustomerPieStats, CustomerBarStats, ProgressBar, CustomerLineStats } from '../_components';
 
+import { Progress } from 'react-bootstrap'
+
 class LandingPage extends React.Component {
 
     componentDidMount() {
@@ -37,15 +39,15 @@ class LandingPage extends React.Component {
 
     render() {
 
-        const { user, labelstatsjson, overallstatsjson, customers } = this.props;
+        const { user, labelstatsjson, overallstatsjson, progressjson, customers } = this.props;
         //const c = customers["customers"] ? customers["customers"] : undefined;
         //console.log(c)
         //console.log("LABEL STATS JSON")
         //console.log(labelstatsjson)
         //displayPieStats(user.id, c);
         console.log("labelstats render, " + Object.values(labelstatsjson));
-        console.log(labelstatsjson)
-        console.log(overallstatsjson)
+        console.log(progressjson)
+        //console.log(overallstatsjson)
         // console.log("CUSTOMERSSSSS")
         // console.log(customers)
         // console.log("LABELSTATSSSS")
@@ -57,22 +59,31 @@ class LandingPage extends React.Component {
         // this.props.dispatch(userActions.getLabelStats(user.id, c))
         // console.log(labelstatsjson)
         
+        //                    {(customers["customers"]&&progressjson.loading == false) ? <ProgressBar animated now={progressjson.progressjson} /> : ''};
+
 
         return (
             <div className="col-md-12">
-                <div className="col-md-6 col-md-offset-3">
+                <div className="col-md-12">
+                </div>
+                <div className="col-md-6 col-md-offset-4">
                     <h1>Hi, {user.firstName}!</h1>
                 </div>
-                <div className="col-md-6 col-md-offset-3">
+                <div className="col-md-12">
+                <div className="col-sm-12 col-md-12 col-lg-6">
                     {(customers["customers"]&&labelstatsjson.loading == false) ? <CustomerPieStats userId={user.id} customers={customers} data={labelstatsjson} /> : ''}
                 </div>
 
-                <div className="col-md-6 col-md-offset-3">
-                    {/* (customers["customers"]&&labelstatsjson.loading == false) ? <CustomerBarStats userId={user.id} customers={customers} data={labelstatsjson} /> : '' */}
+                <div className="col-sm-12 col-md-12 col-lg-6">
+                    {(customers["customers"]&&overallstatsjson.loading == false) ? <CustomerLineStats userId={user.id} customers={customers} data={overallstatsjson} /> : ''}
+                </div>
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
+<<<<<<< HEAD
                     {/* {overallstatsjson.overallstatsjson ? <CustomerLineStats overallstatsjson={overallstatsjson} /> : ''} */}
+=======
+>>>>>>> 51d20521d6bdd07d9ddebb5c2c0eefa7f602f6d5
                     {/* {this.displayPieStats(user.id, c)} */}
                     <CustomerLineStats />
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
@@ -145,12 +156,13 @@ function displayPieStats(customers) {
 
 
 function mapStateToProps(state) {
-    const { users, authentication, customers, labelstatsjson, overallstatsjson } = state;
+    const { users, authentication, customers, progressjson, labelstatsjson, overallstatsjson } = state;
     const { user } = authentication;
     return {
         user,
         users,
         customers,
+        progressjson,
         labelstatsjson,
         overallstatsjson
     };
