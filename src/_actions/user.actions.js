@@ -2,7 +2,6 @@ import { userConstants } from '../_constants';
 import { userService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
-import axios from 'axios';
 
 export const userActions = {
     login,
@@ -10,7 +9,8 @@ export const userActions = {
     getAll,
     //getCustomerDatasets,
     getCustomers,
-    getLabelStats
+    getLabelStats,
+    getOverallStats
 };
 
 function login(username, password) {
@@ -73,11 +73,11 @@ function getCustomers() {
 }
 
 // takes in an array of datasetIds
-function getLabelStats(datasetIds) {
+function getLabelStats(userId, customers) {
     return dispatch => {
         dispatch(request());
 
-        userService.getLabelStats(datasetIds)
+        userService.getLabelStats(userId, customers)
             .then(
                 labelstatsjson => dispatch(success(labelstatsjson)),
                 error => dispatch(failure(error))
@@ -87,6 +87,22 @@ function getLabelStats(datasetIds) {
     function request() { return { type: userConstants.GET_LABEL_STATS_REQUEST }}
     function success(labelstatsjson) { return { type: userConstants.GET_LABEL_STATS_SUCCESS, labelstatsjson }}
     function failure(error) { return { type: userConstants.GET_LABEL_STATS_FAILURE, error }}
+}
+
+function getOverallStats(userId) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getOverallStats(userId)
+            .then(
+                overallstatsjson => dispatch(success(overallstatsjson)),
+                error => dispatch(failure(error))
+            );
+    };
+
+    function request() { return { type: userConstants.GET_OVERALL_STATS_REQUEST }}
+    function success(overallstatsjson) { return { type: userConstants.GET_OVERALL_STATS_SUCCESS, overallstatsjson }}
+    function failure(error) { return { type: userConstants.GET_OVERALL_STATS_FAILURE, error }}
 }
 
 // function getCustomerDatasets(dispatch) {

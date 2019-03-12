@@ -7,20 +7,46 @@ import { CustomerPieStats, CustomerBarStats } from '../_components';
 
 class LandingPage extends React.Component {
     componentDidMount() {
-        this.props.dispatch(userActions.getAll());
+        const { user, loading } = this.props;
+
         this.props.dispatch(userActions.getCustomers());
+        
+        this.props.dispatch(userActions.getLabelStats(user.id, {})); // set labelStats state
+        
+        this.props.dispatch(userActions.getOverallStats(user.id)); // set overallstats state
+
     }
+
+    // componentDidUpdate() {
+    //     const { user, customers, labelstatsjson, loading } = this.props;
+    //     if (customers && !loading) {
+    //         this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
+    //     }
+    // }
+
 
     render() {
 
-        const { user, labelstatsjson, customers } = this.props;
+        const { user, labelstatsjson, overallstatsjson, customers } = this.props;
 
         // check that the customers have been fetched
         const c = customers["customers"] ? customers["customers"] : undefined;
         //console.log(c)
         console.log("LABEL STATS JSON")
         //console.log(labelstatsjson)
-        displayPieStats(user.id, c);
+        //displayPieStats(user.id, c);
+       
+        
+        // console.log(overallstatsjson)
+        // console.log("CUSTOMERSSSSS")
+        // console.log(customers)
+        // console.log("LABELSTATSSSS")
+        // console.log(labelstatsjson)
+
+        //displayPieStats(user.id, customers["customers"])
+        
+        // this.props.dispatch(userActions.getLabelStats(user.id, c))
+        // console.log(labelstatsjson)
         
 
         return (
@@ -35,7 +61,8 @@ class LandingPage extends React.Component {
                     <p></p>
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
-                    
+                    <CustomerPieStats />
+                    <CustomerBarStats />
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}
             </div>
@@ -88,13 +115,14 @@ function displayPieStats(userId, customers) {
 
 
 function mapStateToProps(state) {
-    const { users, authentication, customers, labelstatsjson } = state;
+    const { users, authentication, customers, labelstatsjson, overallstatsjson } = state;
     const { user } = authentication;
     return {
         user,
         users,
         customers,
-        labelstatsjson
+        labelstatsjson,
+        overallstatsjson
     };
 }
 
