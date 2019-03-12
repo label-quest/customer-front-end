@@ -13,11 +13,27 @@ class LandingPage extends React.Component {
         this.props.dispatch(userActions.getCustomer(user.id));
         this.props.dispatch(userActions.getOverallStats(user.id)); // set overallstats state
         
+        // if (customers["customers"]) {
+        //     const label_inds = displayPieStats(customers)
+        //     console.log("MOUNT HERE")
+        //     console.log(label_inds)
+        // }
+        
+        //const label_inds = {customers["customers"] ? displayPieStats(customers) : ''}
         //this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
         
 
     }
 
+    componentWillReceiveProps() {
+        
+        if (this.props.customers["customers"] && !this.props.labelstatsjson.loading && !this.props.labelstatsjson.labelstatsjson) {
+            const label_inds = displayPieStats(this.props.customers)
+            this.props.dispatch(userActions.getLabelStats(this.props.user.id, this.props.customers))
+        }
+
+        console.log(this.props.labelstatsjson)
+    }
 
     render() {
 
@@ -28,7 +44,7 @@ class LandingPage extends React.Component {
         //console.log(labelstatsjson)
         //displayPieStats(user.id, c);
        
-        
+        console.log(labelstatsjson)
         //console.log(overallstatsjson)
         // console.log("CUSTOMERSSSSS")
         // console.log(customers)
@@ -50,6 +66,8 @@ class LandingPage extends React.Component {
                 <div className="col-md-6 col-md-offset-3">
                     {customers["customers"] ? <CustomerPieStats userId={user.id} customers={customers} /> : ''}
                 </div>
+                    {/* {this.displayPieStats(user.id, c)} */}
+                    {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
                     
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
@@ -60,20 +78,44 @@ class LandingPage extends React.Component {
 
 }
 
-function displayPieStats(userId, customers) {
+// function displayPieStats(customers) {
+
+//     //const { labelstatsjson } = this.props;
+//     console.log("HELLO I'M IN HERE")
+//     console.log(customers)
+
+//     // retrieve their datasets
+//     let datasets = customers.customers.datasets
+//     console.log(datasets)
+    
+//     // get the ids of their dataset
+//     let label_stats_ind = []
+//     datasets.forEach(element => {
+//         label_stats_ind.push(element.id);
+//     });
+//     console.log(label_stats_ind)
+
+//     // Dispatch below gets the label_stats for all datasets owned and place
+//     // in labelstatsjson prop.
+//     // {{label_stats1},{label_stats2},...}
+
+//     dispatch(userActions.getLabelStats(label_stats_ind));
+//     //console.log(labelstatsjson)
+
+//     // Using labelstatsjson generate a Pie chart for each item
+//     // using CustomerPieStats.js
+
+// }
+
+function displayPieStats(customers) {
+    //const { labelstatsjson } = this.props;
 
     //const { labelstatsjson } = this.props;
     console.log("HELLO I'M IN HERE")
     console.log(customers)
 
-    // get the customer log for current user
-    let filteredCustomers = customers.filter(customer => {
-        return customer.id === userId;
-    });
-    console.log(filteredCustomers)
-
     // retrieve their datasets
-    let datasets = filteredCustomers[0].datasets
+    let datasets = customers.customers.datasets
     console.log(datasets)
     
     // get the ids of their dataset
@@ -83,11 +125,12 @@ function displayPieStats(userId, customers) {
     });
     console.log(label_stats_ind)
 
+    return label_stats_ind
     // Dispatch below gets the label_stats for all datasets owned and place
     // in labelstatsjson prop.
     // {{label_stats1},{label_stats2},...}
 
-    //dispatch(userActions.getLabelStats(label_stats_ind));
+    //this.props.dispatch(userActions.getLabelStats(label_stats_ind));
     //console.log(labelstatsjson)
 
     // Using labelstatsjson generate a Pie chart for each item
