@@ -64,20 +64,21 @@ class LandingPage extends React.Component {
 
         return (
             <div className="col-md-12">
-                <div className="col-md-12">
-                </div>
                 <div className="col-md-6 col-md-offset-4">
                     <h1>Hi, {user.firstName}!</h1>
+                </div>
+                <div className="col-md-12">
+                    <div className="col-sm-12 col-md-12 col-lg-12">
+                        {progressjson.loading == false ? <ProgressBarComponent data={progressjson}/> : ''}
+                    </div>
                 </div>
                 <div className="col-md-12">
                 <div className="col-sm-12 col-md-12 col-lg-6">
                     {(customers["customers"]&&labelstatsjson.loading == false) ? <CustomerPieStats userId={user.id} customers={customers} data={labelstatsjson} /> : ''}
                 </div>
-
                 <div className="col-sm-12 col-md-12 col-lg-6">
-                    <ProgressBarComponent />
-                    {(customers["customers"]&&overallstatsjson.loading == false) ? <CustomerLineStats userId={user.id} customers={customers} data={overallstatsjson} /> : ''}
-                </div>
+                        {(customers["customers"]&&overallstatsjson.loading == false) ? <CustomerLineStats userId={user.id} customers={customers} data={overallstatsjson} /> : ''}
+                </div>  
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
