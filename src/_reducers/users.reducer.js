@@ -1,11 +1,5 @@
 import { userConstants } from '../_constants';
 
-// const INITIAL_STATE = {
-//   customers: [],
-//   dataset: [],
-// }
-// // state = INITIAL_STATE
-
 export function users(state = {}, action) {
   switch (action.type) {
     case userConstants.GETALL_REQUEST:

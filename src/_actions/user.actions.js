@@ -9,7 +9,8 @@ export const userActions = {
     logout,
     getAll,
     //getCustomerDatasets,
-    getCustomers
+    getCustomers,
+    getLabelStats
 };
 
 function login(username, password) {
@@ -69,6 +70,22 @@ function getCustomers() {
     function request() { return { type: userConstants.GET_CUSTOMERS_REQUEST }}
     function success(customers) { return { type: userConstants.GET_CUSTOMERS_SUCCESS, customers }}
     function failure(error) { return { type: userConstants.GET_CUSTOMERS_FAILURE, error }}
+}
+
+function getLabelStats(datasetIds) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getLabelStats(datasetIds)
+            .then(
+                labelstatsjson => dispatch(success(labelstatsjson)),
+                error => dispatch(failure(error))
+            );
+    };
+
+    function request() { return { type: userConstants.GET_LABEL_STATS_REQUEST }}
+    function success(labelstatsjson) { return { type: userConstants.GET_LABEL_STATS_SUCCESS, labelstatsjson }}
+    function failure(error) { return { type: userConstants.GET_LABEL_STATS_FAILURE, error }}
 }
 
 // function getCustomerDatasets(dispatch) {

@@ -6,7 +6,8 @@ export const userService = {
     login,
     logout,
     getAll,
-    getCustomers
+    getCustomers,
+    getLabelStats
 };
 
 function login(username, password) {
@@ -58,6 +59,10 @@ function getAll() {
 
 function getCustomers() {
     return axios.get('http://localhost:3000/customers').then(handleGetResponse)
+}
+
+function getLabelStats(datasetIds) {
+    return axios.get('http://localhost:3000/datasets/' + datasetIds + '/label_stats').then(handleGetResponse)
 }
 
 function handleLoginResponse(response) {
