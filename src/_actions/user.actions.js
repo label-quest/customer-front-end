@@ -8,7 +8,7 @@ export const userActions = {
     logout,
     getAll,
     //getCustomerDatasets,
-    getCustomers,
+    getCustomer,
     getLabelStats,
     getOverallStats
 };
@@ -56,11 +56,11 @@ function getAll() {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getCustomers() {
+function getCustomer(userId) {
     return dispatch => {
         dispatch(request());
 
-        userService.getCustomers()
+        userService.getCustomer(userId)
             .then(
                 customers => dispatch(success(customers)),
                 error => dispatch(failure(error))

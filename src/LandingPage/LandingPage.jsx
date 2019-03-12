@@ -9,10 +9,9 @@ class LandingPage extends React.Component {
     componentDidMount() {
         const { user, loading } = this.props;
 
-        this.props.dispatch(userActions.getCustomers());
-        
-        this.props.dispatch(userActions.getLabelStats(user.id, {})); // set labelStats state
-        
+
+        this.props.dispatch(userActions.getCustomer(user.id));
+        //this.props.dispatch(userActions.getLabelStats(user.id, customers)); // set labelStats state
         this.props.dispatch(userActions.getOverallStats(user.id)); // set overallstats state
 
     }
@@ -28,20 +27,19 @@ class LandingPage extends React.Component {
     render() {
 
         const { user, labelstatsjson, overallstatsjson, customers } = this.props;
-
-        // check that the customers have been fetched
         const c = customers["customers"] ? customers["customers"] : undefined;
         //console.log(c)
-        console.log("LABEL STATS JSON")
+        //console.log("LABEL STATS JSON")
         //console.log(labelstatsjson)
         //displayPieStats(user.id, c);
        
         
-        // console.log(overallstatsjson)
+        //console.log(overallstatsjson)
         // console.log("CUSTOMERSSSSS")
         // console.log(customers)
         // console.log("LABELSTATSSSS")
         // console.log(labelstatsjson)
+        console.log(c)
 
         //displayPieStats(user.id, customers["customers"])
         
@@ -61,7 +59,7 @@ class LandingPage extends React.Component {
                     <p></p>
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
-                    <CustomerPieStats />
+                    <CustomerPieStats userId={user.id} customers={c} />
                     <CustomerBarStats />
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}

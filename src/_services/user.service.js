@@ -6,7 +6,7 @@ export const userService = {
     login,
     logout,
     getAll,
-    getCustomers,
+    getCustomer,
     getLabelStats,
     getOverallStats
 };
@@ -65,8 +65,8 @@ function getAll() {
 // 		.catch()
 //     }
 // }
-function getCustomers() {
-    return axios.get('http://localhost:3000/customers').then(handleGetResponse)
+function getCustomer(userId) {
+    return axios.get('http://localhost:3000/customers/' + userId).then(handleGetResponse)
 }
 
 // takes in an array of dataset ids. This should return a nested
