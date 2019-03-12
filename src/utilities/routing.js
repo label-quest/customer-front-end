@@ -6,7 +6,18 @@ const loggedInNavbarPages = [
 		name: 'Customers',
 		path: '/',
 		icon: ''
+	},
+	{
+		name: 'Upload Dataset',
+		path: '/uploadData',
+		icon: ''
+	},
+	{
+		name: 'Upload Labels',
+		path: '/uploadLabels',
+		icon: ''
 	}
+
 ];
 
 const loggedOutNavbarPages = [
