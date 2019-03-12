@@ -24,7 +24,7 @@ import Navigation from '../Navbar/Navbar';
 //         <p>{props.myValue}</p>
 //     );
 // };
-// const Ind = () => <h2>HELLO</h2>
+const Ind = () => <h2>Label Upload Placeholder</h2>
 
 
 
@@ -53,7 +53,8 @@ class App extends React.Component {
                             <Router history={history}>
                                 <div>
                                     <PrivateRoute exact path="/" component={LandingPage} />
-                                    <PrivateRoute exact path="/customer" component={CustomerUpload} />
+                                    <PrivateRoute exact path="/uploadData" component={CustomerUpload} />
+                                    <PrivateRoute exact path="/uploadLabels" component={Ind} />
                                     <Route path="/login" component={LoginPage} />
                                 </div>
                             </Router>
