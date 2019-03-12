@@ -12,44 +12,16 @@ const styles = {
 
 
 const CustomerPieStats = props => {
-
+    console.log("Pie stats");
+    console.log(props);
     return (
         <div style={styles}>
         <h2>Label share of total set {"\u2728"}</h2>
         <div style={{ height: 400 }}>
             <ResponsivePie
-                data={[
-                    {
-                    "id": "python",
-                    "label": "python",
-                    "value": 533,
-                    "color": "hsl(309, 70%, 50%)"
-                    },
-                    {
-                    "id": "scala",
-                    "label": "scala",
-                    "value": 266,
-                    "color": "hsl(166, 70%, 50%)"
-                    },
-                    {
-                    "id": "go",
-                    "label": "go",
-                    "value": 252,
-                    "color": "hsl(254, 70%, 50%)"
-                    },
-                    {
-                    "id": "ruby",
-                    "label": "ruby",
-                    "value": 25,
-                    "color": "hsl(30, 70%, 50%)"
-                    },
-                    {
-                    "id": "javascript",
-                    "label": "javascript",
-                    "value": 424,
-                    "color": "hsl(5, 70%, 50%)"
-                    }
-                ]}
+                data={
+                props.data.labelstatsjson
+                }
                 margin={{
                     "top": 40,
                     "right": 80,
@@ -99,49 +71,13 @@ const CustomerPieStats = props => {
                 fill={[
                     {
                         "match": {
-                            "id": "ruby"
+                            "id": "Street"
                         },
                         "id": "dots"
                     },
                     {
                         "match": {
-                            "id": "c"
-                        },
-                        "id": "dots"
-                    },
-                    {
-                        "match": {
-                            "id": "go"
-                        },
-                        "id": "dots"
-                    },
-                    {
-                        "match": {
-                            "id": "python"
-                        },
-                        "id": "dots"
-                    },
-                    {
-                        "match": {
-                            "id": "scala"
-                        },
-                        "id": "lines"
-                    },
-                    {
-                        "match": {
-                            "id": "lisp"
-                        },
-                        "id": "lines"
-                    },
-                    {
-                        "match": {
-                            "id": "elixir"
-                        },
-                        "id": "lines"
-                    },
-                    {
-                        "match": {
-                            "id": "javascript"
+                            "id": "Car"
                         },
                         "id": "lines"
                     }

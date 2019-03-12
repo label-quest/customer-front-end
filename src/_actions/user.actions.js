@@ -10,7 +10,8 @@ export const userActions = {
     //getCustomerDatasets,
     getCustomer,
     getLabelStats,
-    getOverallStats
+    getOverallStats,
+    getProgress
 };
 
 function login(username, password) {
@@ -59,11 +60,17 @@ function getAll() {
 function getCustomer(userId) {
     return dispatch => {
         dispatch(request());
-
         userService.getCustomer(userId)
             .then(
-                customers => dispatch(success(customers)),
-                error => dispatch(failure(error))
+                userService.getLabelStats(userId)
+                    .then(
+                        customers => dispatch(success(customers)),
+                        labelstatsjson => dispatch(success(labelstatsjson)),
+                        error => dispatch(failure(error))
+                    )
+                //
+                //error => dispatch(failure(error))
+                    //userService.getOverallStats(userId);
             );
     };
 
@@ -104,6 +111,22 @@ function getOverallStats(userId) {
     function success(overallstatsjson) { return { type: userConstants.GET_OVERALL_STATS_SUCCESS, overallstatsjson }}
     function failure(error) { return { type: userConstants.GET_OVERALL_STATS_FAILURE, error }}
 }
+
+function getProgress(userId) {
+    return dispatch => {
+        dispatch(request());
+        userService.getProgress(userId)
+            .then(
+                progressjson => dispatch(success(progressjson)),
+                error => dispatch(failure(error))
+            );
+    };
+
+    function request() { return { type: userConstants.GET_PROGRESS_STATS_REQUEST }}
+    function success(progressjson) { return { type: userConstants.GET_PROGRESS_STATS_SUCCESS, progressjson }}
+    function failure(error) { return { type: userConstants.GET_PROGRESS_STATS_FAILURE, error }}
+}
+
 
 // function getCustomerDatasets(dispatch) {
 //     return function(cust) {

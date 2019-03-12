@@ -33,7 +33,7 @@ class Navigation extends React.Component {
 
 		return(
 			<Navbar bg="light" expand="lg">
-				<Navbar.Brand href="/">Label Me Custom Portal</Navbar.Brand>
+				<Navbar.Brand href="/">Label Me Customer Portal</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="mr-auto">

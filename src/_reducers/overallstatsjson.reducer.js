@@ -8,11 +8,13 @@ export function overallstatsjson(state = {}, action) {
       };
     case userConstants.GET_OVERALL_STATS_SUCCESS:
       return {
-        overallstatsjson: action.overallstatsjson
+        overallstatsjson: action.overallstatsjson,
+        loading: false
       };
     case userConstants.GET_OVERALL_STATS_FAILURE:
       return {
-        error: action.error  
+        error: action.error,
+        loading: false
       };
     default:
       return state
