@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
-import { CustomerPieStats, CustomerBarStats, ProgressBar, CustomerLineStats } from '../_components';
+import { CustomerPieStats, CustomerBarStats, ProgressBarComponent, CustomerLineStats } from '../_components';
 
-import { Progress } from 'react-bootstrap'
+//import { Progress } from 'react-bootstrap'
 
 class LandingPage extends React.Component {
 
@@ -75,6 +75,7 @@ class LandingPage extends React.Component {
                 </div>
 
                 <div className="col-sm-12 col-md-12 col-lg-6">
+                    <ProgressBarComponent />
                     {(customers["customers"]&&overallstatsjson.loading == false) ? <CustomerLineStats userId={user.id} customers={customers} data={overallstatsjson} /> : ''}
                 </div>
                 </div>
@@ -82,6 +83,7 @@ class LandingPage extends React.Component {
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* <CustomerLineStats /> */}
+                    
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}
             </div>

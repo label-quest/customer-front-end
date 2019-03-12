@@ -1,8 +1,9 @@
 import React from 'react'
+import { ProgressBar } from 'react-bootstrap'
 
-const ProgressBar = props => {
+const ProgressBarComponent = props => {
     return (
         <ProgressBar now={60} />
     )
 };
-export {ProgressBar};
+export {ProgressBarComponent};
