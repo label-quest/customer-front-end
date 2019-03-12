@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
-import { CustomerPieStats, CustomerBarStats } from '../_components';
+import { CustomerPieStats, CustomerBarStats, ProgressBar, CustomerLineStats } from '../_components';
 
 class LandingPage extends React.Component {
    
@@ -68,7 +68,7 @@ class LandingPage extends React.Component {
                 </div>
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* {customers["customers"] ? displayPieStats(customers) : ''} */}
-                    
+                    <CustomerLineStats />
                     {/* {this.displayPieStats(user.id, c)} */}
                     {/* <CustomerPieStats userId={user.id} customers = {c} /> */}
                     {/* <CustomerBarStats /> */}

@@ -69,12 +69,10 @@ function getCustomer(userId) {
 
 // takes in an array of dataset ids. This should return a nested
 // set from the endpoint containing a get for all ids
-function getLabelStats(userId, customers) {
-    console.log("USER ID AND CUSTOMER")
-    console.log(userId)
-    console.log(customers)
+function getLabelStats(index) {
+ 
     // iterate over all ids HERE
-    return axios.get('http://localhost:3000/datasets/' + userId + '/label_stats').then(handleGetResponse)
+    return axios.get('http://localhost:3000/datasets/' + index + '/label_stats').then(handleGetResponse)
 }
 
 // takes in a userId and returns dataset stats for that id
