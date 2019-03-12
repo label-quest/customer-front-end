@@ -19,8 +19,6 @@ function login(username, password) {
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
-            console.log("USER BELOW")
-            console.log(user)
             return user;
         });
 }
@@ -85,8 +83,6 @@ function getOverallStats(userId) {
 }
 
 function handleLoginResponse(response) {
-    console.log("CHECK THIS RESPONSE")
-    console.log(response)
     if (!response.data.ok) {  
         if (response.status === 401) {
             logout();
