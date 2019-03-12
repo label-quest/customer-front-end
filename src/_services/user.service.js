@@ -61,7 +61,10 @@ function getCustomers() {
     return axios.get('http://localhost:3000/customers').then(handleGetResponse)
 }
 
+// takes in an array of dataset ids. This should return a nested
+// set from the endpoint containing a get for all ids
 function getLabelStats(datasetIds) {
+    // iterate over all ids HERE
     return axios.get('http://localhost:3000/datasets/' + datasetIds + '/label_stats').then(handleGetResponse)
 }
 

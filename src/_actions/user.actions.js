@@ -72,6 +72,7 @@ function getCustomers() {
     function failure(error) { return { type: userConstants.GET_CUSTOMERS_FAILURE, error }}
 }
 
+// takes in an array of datasetIds
 function getLabelStats(datasetIds) {
     return dispatch => {
         dispatch(request());

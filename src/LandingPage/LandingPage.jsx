@@ -71,10 +71,15 @@ function displayPieStats(userId, customers) {
         });
         console.log(label_stats_ind)
 
-        // retrieve the label_stats for each all datasets owned
+        // Dispatch below gets the label_stats for all datasets owned and place
+        // in labelstatsjson prop.
+        // {{label_stats1},{label_stats2},...}
+
         //dispatch(userActions.getLabelStats(label_stats_ind));
-        
         //console.log(labelstatsjson)
+
+        // Using labelstatsjson generate a Pie chart for each item
+        // using CustomerPieStats.js
         return
     }
 
